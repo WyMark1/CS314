@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f9d86987-2529-4eec-9a00-751061f61d90",
+		"_postman_id": "c0467caf-11c8-4566-9790-cbb96cc9a156",
 		"name": "tour",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "25276659-f9d86987-2529-4eec-9a00-751061f61d90"
+		"_uid": "25883428-c0467caf-11c8-4566-9790-cbb96cc9a156"
 	},
 	"item": [
 		{
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7c649f4b-b88c-4da7-a237-eb161a14beb8",
+						"id": "b4548d61-ca51-433a-81e0-de5fc7ef1656",
 						"exec": [
 							"pm.test(\"Response is HTTP404 status\", () => {",
 							"    pm.response.to.have.status(404);",
@@ -23,7 +23,7 @@
 					}
 				}
 			],
-			"id": "a4285602-93b5-4ddd-9c3f-e2dfb5162e40",
+			"id": "6714a00a-cdea-44fa-bb21-ef79066210c1",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
