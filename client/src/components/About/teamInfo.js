@@ -19,7 +19,7 @@ export const memberData = [
     },
     {
         name: "Wyatt Markham",
-        bio: "Bio Here",
+        bio: "My name is Wyatt Markham I have lived in Colorado all my life. I am academically a junior but I am in my second year of college. My goal for the future is to be a machine learning scientist and work on cutting edge new machine learning technology. Currently I don't have any real world experience with computer science. So I am really excited to learn how real world software engineering works.",
         homeTown: "Denver, CO",
         imagePath: wyattPic
     },
