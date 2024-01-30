@@ -3,7 +3,7 @@ import teamPic from "@static/images/PlaceholderTeam.jpg";
 
 export const teamData =
     {
-        teamName: "Team Name",
+        teamName: "t11 BoneYard",
         missionStatement: "Mission Statement",
         imagePath: teamPic,
     };
