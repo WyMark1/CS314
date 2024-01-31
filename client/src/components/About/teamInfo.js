@@ -7,7 +7,7 @@ import masonPic from "@static/images/MasonPic.jpg";
 export const teamData =
     {
         teamName: "t11 BoneYard",
-        missionStatement: "Mission Statement",
+        missionStatement: "Our main goal is to encourage innovation, collaboration, and excellence in the field of computer science. We are committed to building a lively community where individuals from all backgrounds can come together to exchange ideas, explore the latest technologies, and drive progress in computing. Our focus is on promoting learning, research, and practical application of computer science principles to solve real-world problems. We aim to empower our members with the knowledge, skills, and opportunities they need to excel in their careers and make a positive impact on society. We promote ethical practices and responsible use of technology to shape a future where computer science benefits all aspects of life. Our group is dedicated to continuous learning, sharing expertise, and inspiring the next generation of computer scientists. We provide a platform for professional growth, innovation, and meaningful impact in the ever-evolving world of technology through workshops, seminars, collaborative projects, and networking events.",
         imagePath: teamPic,
     };
 
