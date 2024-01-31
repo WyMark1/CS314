@@ -26,7 +26,7 @@ export const memberData = [
     },
     {
         name: "Mason Stencel",
-        bio: "Bio Here",
+        bio: "My name is Mason Stencel I was born and raised in Aurora, Colorado. I am a junior here at CSU and plan on graduating this December. My goal for the future is to be a Software Engineer and I think this course will be a great learning experience for what that will entail. I am excited to learn more this semester and hopefully land an internship in the summer, but currently do not have any work experience.",
         homeTown: "Aurora, Colorado",
         imagePath: memberPic
     },
