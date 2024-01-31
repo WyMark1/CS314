@@ -1,7 +1,7 @@
 import memberPic from "@static/images/Placeholder.jpg";
 import wyattPic from "@static/images/WyattPic.jpg";
 import austinPic from "@static/images/AustinPic.jpg";
-import teamPic from "@static/images/PlaceholderTeam.jpg";
+import teamPic from "@static/images/boneyard.jpg";
 import masonPic from "@static/images/MasonPic.jpg";
 
 export const teamData =
@@ -32,9 +32,9 @@ export const memberData = [
         imagePath: masonPic
     },
     {
-        name: "Team Member 4",
-        bio: "Bio Here",
-        homeTown: "Hometown",
+        name: "Blake Brown",
+        bio: "Hello there! My name is Blake Brown and I am a senior at Colorado State University. I am passionate about programming and everything related to computers. I have been working in a computer repair store for seven years now, and I have loved every second of it. My long-term goal is to become a software engineer for a tech company.",
+        homeTown: "Castle Rock, Colorado",
         imagePath: memberPic
     },
     {
