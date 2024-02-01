@@ -15,7 +15,7 @@ public class ConfigRequest extends Request {
 
     @Override
     public void buildResponse() {
-        serverName = "t11 team name";
+        serverName = "t11 BoneYard";
         features = new ArrayList<>();
         features.add("config");
         log.trace("buildResponse -> {}", this);
