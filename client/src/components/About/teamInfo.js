@@ -39,4 +39,10 @@ export const memberData = [
         homeTown: "Castle Rock, Colorado",
         imagePath: blakePic
     },
+    {
+        name: "Team Member 5",
+        bio: "Bio Here",
+        homeTown: "Hometown",
+        imagePath: memberPic
+    },
 ];
