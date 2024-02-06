@@ -4,6 +4,7 @@ import austinPic from "@static/images/AustinPic.jpg";
 import teamPic from "@static/images/boneyard.jpg";
 import masonPic from "@static/images/MasonPic.jpg";
 import blakePic from "@static/images/BlakesPic.jpg";
+import joshPic from "@static/images/josh_pic.jpg";
 
 
 export const teamData =
@@ -40,9 +41,9 @@ export const memberData = [
         imagePath: blakePic
     },
     {
-        name: "Team Member 5",
-        bio: "Bio Here",
-        homeTown: "Hometown",
-        imagePath: memberPic
+        name: "Josh Underwood",
+        bio: "Hi, I am Josh, a senior studying Computer Science at Colorado State University. One of my greatest accomplishments was desinging a netflix recommendation system based on users reviews. I actually still use it to this day! My goal is to one day design software for consumers as my career. I enjoy watching football and basketball, as well as playing basketball and going snowboarding.",
+        homeTown: "Boise, Idaho",
+        imagePath: joshPic
     },
 ];
