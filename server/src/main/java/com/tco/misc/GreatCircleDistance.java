@@ -1,3 +1,7 @@
+package com.tco.misc;
+
 public interface GreatCircleDistance {
-    public long between(double geoCord1, double geoCord2);
+
+    public Long between(GeographicCoordinate geoCord1, GeographicCoordinate geoCord2, double num);
+    
 }
