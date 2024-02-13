@@ -1,4 +1,4 @@
-package main.java.com.tco.misc;
+package com.tco.misc;
 
 public class vincenty implements GreatCircleDistance {
 
