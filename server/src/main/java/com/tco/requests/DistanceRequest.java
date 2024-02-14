@@ -12,12 +12,12 @@ public class DistanceRequest extends Request {
     private String formula; 
 
     // Constructor
-    public DistanceRequest(String requestType, Places places, double earthRadius, String formula) {
-        super(requestType);
+    public DistanceRequest(Places places, double earthRadius, String formula) {
+        super(); // Call the default constructor of Request
         this.places = places;
         this.earthRadius = earthRadius;
         this.formula = formula;
-        this.distances = new Distances(); 
+        this.distances = new Distances(); // Initializes the distances collection
     }
 
     // Method to build the response for the distance request
