@@ -1,6 +1,7 @@
 package com.tco.requests;
 import com.tco.misc.GeographicCoordinate;
 import java.util.LinkedHashMap;
+import java.lang.Math;
 
 class Place extends LinkedHashMap<String, String> implements GeographicCoordinate {
     public double lat;
@@ -9,11 +10,23 @@ class Place extends LinkedHashMap<String, String> implements GeographicCoordinat
     Place (String lat, String lon) {
 
     }
-    Place (double lat, double lon){
+    
+    Place (double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }
 
-    public Double latRadians() { return lat; }
-    public Double lonRadians() { return lon; }
+    public Double latRadians() { 
+        if (Math.abs(lat) <= Math.PI) {
+            return lat;
+        }
+        return Math.toRadians(lat); 
+    }
+
+    public Double lonRadians() { 
+        if (Math.abs(lon) <= Math.PI) {
+            return lon;
+        }
+        return Math.toRadians(lon); 
+    }
 }
