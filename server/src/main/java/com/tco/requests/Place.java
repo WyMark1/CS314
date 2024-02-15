@@ -14,6 +14,6 @@ class Place extends LinkedHashMap<String, String> implements GeographicCoordinat
         this.lon = lon;
     }
 
-    public Double latRadians() { return 0.0; }
+    public Double latRadians() { return lat; }
     public Double lonRadians() { return 0.0; }
 }
