@@ -3,7 +3,7 @@ import com.tco.misc.GeographicCoordinate;
 import java.util.LinkedHashMap;
 import java.lang.Math;
 
-class Place extends LinkedHashMap<String, String> implements GeographicCoordinate {
+public class Place extends LinkedHashMap<String, String> implements GeographicCoordinate {
     public double lat;
     public double lon;
 
@@ -11,7 +11,7 @@ class Place extends LinkedHashMap<String, String> implements GeographicCoordinat
 
     }
     
-    Place (double lat, double lon) {
+    public Place (double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
     }

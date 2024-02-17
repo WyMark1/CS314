@@ -1,8 +1,20 @@
 package com.tco.misc;
 
-public class cosines implements GreatCircleDistance{
+import java.lang.Math;
 
-    public Long between(GeographicCoordinate geoCord1, GeographicCoordinate geoCord2, double num){
-        return 0L;
+public class cosines implements GreatCircleDistance {
+
+    public cosines() {}
+    
+    public Long between(GeographicCoordinate geoCord1, GeographicCoordinate geoCord2, double radius) {
+        Double phi1 = geoCord1.latRadians();
+        Double phi2 = geoCord2.latRadians();
+        Double deltaLambda = geoCord2.lonRadians() - geoCord1.lonRadians();
+        Double sin = Math.sin(phi1) * Math.sin(phi2);
+        Double cos = Math.cos(phi1) * Math.cos(phi2) * Math.cos(deltaLambda);
+        Double result = Math.acos(sin + cos);
+        result *= radius;
+        return Math.round(result); //May need to change this to not round not sure how we are supposed to do it yet.
     }
+
 }
