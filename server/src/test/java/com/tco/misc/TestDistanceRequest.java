@@ -26,7 +26,7 @@ public class TestDistanceRequest {
     }
 
     @Test 
-    @DisplayName("mstencel: Testing distances with 0 places to ensure distance value is 0.")
+    @DisplayName("mstencel: Testing distances with 1 places to ensure distance value is 0.")
     public void TestOnePlaces() {
         Place location1 = new Place(0.0, 0.0);
         Places places = new Places();
