@@ -21,7 +21,7 @@ public class TestDistanceRequest {
         Long result = 0L;
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
-        disRequest.buildDistanceList();
+        disRequest.buildResponse();
         assertEquals(result, (disRequest.getDistanceList()).get(0));
     }
 
@@ -35,7 +35,7 @@ public class TestDistanceRequest {
         Long result = 0L;
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
-        disRequest.buildDistanceList();
+        disRequest.buildResponse();
         assertEquals(1, (disRequest.getDistanceList()).size());
         assertEquals(result, (disRequest.getDistanceList()).get(0));
 
@@ -53,7 +53,7 @@ public class TestDistanceRequest {
         int result = 1;
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
-        disRequest.buildDistanceList();
+        disRequest.buildResponse();
         assertEquals(result, disRequest.getDistanceList().size());
     }
 
@@ -68,10 +68,10 @@ public class TestDistanceRequest {
         places.add(location2);
         places.add(location3);
         Double radius = 31415.92;
-        int result = 3; 
+        int result = 2; 
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
-        disRequest.buildDistanceList();
+        disRequest.buildResponse();
         assertEquals(result, disRequest.getDistanceList().size());
     }
 
@@ -87,14 +87,12 @@ public class TestDistanceRequest {
         places.add(location2);
         places.add(location3);
         Long result1 = 546179L; 
-        Long result2 = 562241L; 
-        Long result3 = 1107137L; 
+        Long result2 = 1107137L; 
         String formula = "haversine";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
-        disRequest.buildDistanceList();
+        disRequest.buildResponse();
         assertEquals(result1, disRequest.getDistanceList().get(0)); // place 1 - place 2
-        assertEquals(result2, disRequest.getDistanceList().get(1)); // place 1 - place 3
-        assertEquals(result3, disRequest.getDistanceList().get(2)); // place 2 - place 3
+        assertEquals(result2, disRequest.getDistanceList().get(1)); // place 2 - place 3
 
     }
 

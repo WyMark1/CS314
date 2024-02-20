@@ -31,28 +31,21 @@ public class DistanceRequest extends Request {
     public void addHaversineDistance() {
         haversine haver = new haversine();
         for (int i = 0; i < places.size() - 1; i++) {
-            for (int j = i + 1; j < places.size(); j++) {  // Calculates distance from each iteration until the end of the list then moves up. 
-            // ex. place 1 - place 2, then place 1 - place 3, then place 2 - place 3. Ensures no repeats and more efficient time.
-                distances.add(haver.between(places.get(i), places.get(j), earthRadius)); 
-            }
+            distances.add(haver.between(places.get(i), places.get(i+1), earthRadius)); 
         }
     }
 
     public void addCosinesDistance() {
         cosines cos = new cosines();
         for (int i = 0; i < places.size() - 1; i++) {
-            for (int j = i + 1; j < places.size(); j++) { 
-                distances.add(cos.between(places.get(i), places.get(j), earthRadius)); 
-            }
+                distances.add(cos.between(places.get(i), places.get(i+1), earthRadius)); 
         }
     }
 
     public void addVincentyDistance() {
         vincenty vin = new vincenty();
         for (int i = 0; i < places.size() - 1; i++) {
-            for (int j = i + 1; j < places.size(); j++) { 
-                distances.add(vin.between(places.get(i), places.get(j), earthRadius)); 
-            }
+            distances.add(vin.between(places.get(i), places.get(i+1), earthRadius)); 
         }
     }
 
@@ -80,7 +73,6 @@ public class DistanceRequest extends Request {
     @Override
     public void buildResponse() {
         buildDistanceList();
-        distances = getDistanceList();
         log.trace("buildResponse -> {}", this);
     }
 }
