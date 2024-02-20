@@ -76,7 +76,7 @@ public class TestDistanceRequest {
     }
 
     @Test 
-    @DisplayName("mstencel: Testing 2 distances with haversine to ensure accuracy")
+    @DisplayName("mstencel: Testing 3 distances with haversine to ensure accuracy")
     public void TestTwoPlacesHaversine() {
         Place location1 = new Place(70.25, 20.75);
         Place location2 = new Place(120.50, 45.00);
