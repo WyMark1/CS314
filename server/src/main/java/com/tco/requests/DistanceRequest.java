@@ -85,7 +85,6 @@ public class DistanceRequest extends Request {
             this.formula = formula;
         }
         this.places = places;
-        System.out.println(places);
         buildDistanceList();
         log.trace("buildResponse -> {}", this);
     }
