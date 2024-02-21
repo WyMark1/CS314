@@ -4,8 +4,6 @@ import java.util.LinkedHashMap;
 import java.lang.Math;
 
 public class Place extends LinkedHashMap<String, String> implements GeographicCoordinate {
-    //public double lat;
-    //public double lon;
     
     public Place (Double lat, Double lon) {
         this.put("latitude", lat+"");
