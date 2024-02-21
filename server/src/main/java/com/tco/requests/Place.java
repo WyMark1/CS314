@@ -16,6 +16,8 @@ public class Place extends LinkedHashMap<String, String> implements GeographicCo
         this.lon = lon;
     }
 
+    public Place () {}
+    
     public Double latRadians() { 
         if (Math.abs(lat) <= Math.PI) {
             return lat;
