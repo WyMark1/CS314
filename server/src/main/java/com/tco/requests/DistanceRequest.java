@@ -27,7 +27,7 @@ public class DistanceRequest extends Request {
         this.distances = new Distances(); // Initializes the distances collection
     }
 
-    public void addHaversineDistance() {
+    private void addHaversineDistance() {
         haversine haver = new haversine();
         for (int i = 0; i < places.size() - 1; i++) {
             distances.add(haver.between(places.get(i), places.get(i+1), earthRadius)); 
@@ -35,7 +35,7 @@ public class DistanceRequest extends Request {
         distances.add(haver.between(places.get(places.size()-1), places.get(0), earthRadius));
     }
 
-    public void addCosinesDistance() {
+    private void addCosinesDistance() {
         cosines cos = new cosines();
         for (int i = 0; i < places.size() - 1; i++) {
                 distances.add(cos.between(places.get(i), places.get(i+1), earthRadius)); 
@@ -43,7 +43,7 @@ public class DistanceRequest extends Request {
         distances.add(cos.between(places.get(places.size()-1), places.get(0), earthRadius));
     }
 
-    public void addVincentyDistance() {
+    private void addVincentyDistance() {
         vincenty vin = new vincenty();
         for (int i = 0; i < places.size() - 1; i++) {
             distances.add(vin.between(places.get(i), places.get(i+1), earthRadius)); 
@@ -51,7 +51,7 @@ public class DistanceRequest extends Request {
         distances.add(vin.between(places.get(places.size()-1), places.get(0), earthRadius));
     }
 
-    public void buildDistanceList() {
+    private void buildDistanceList() {
         if (places.size() >= 2) {
             if (formula == null) { // Assuming default is vincenty, but can change to say if vincenty otherwise.
                 addVincentyDistance();

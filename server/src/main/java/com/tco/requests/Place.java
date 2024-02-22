@@ -10,6 +10,8 @@ public class Place extends LinkedHashMap<String, String> implements GeographicCo
         this.put("longitude", lon+"");
     }
 
+    public Place () {}
+    
     public Double latRadians() { 
         Double lat = Double.parseDouble(this.get("latitude"));
         if (Math.abs(lat) <= Math.PI) {
