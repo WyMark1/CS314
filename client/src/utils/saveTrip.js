@@ -1,9 +1,9 @@
 export function SaveTrip(tripName, fileText){
-    const file = new Blob([fileText], { type: "application/json" });
+    const file = new Blob([fileText], { type: "application/vnd.google-earth.kml+xml" });
     const link = document.createElement("a");
     const url = URL.createObjectURL(file);
     link.href = url;
-    link.download = tripName + ".json";
+    link.download = tripName + ".kml";
     document.body.appendChild(link);
     link.click();
     
