@@ -7,7 +7,7 @@ import com.tco.misc.GreatCircleDistance;
 public abstract class TourOptimizer {
 
     public Places construct(Places places, Double radius, String formula, Double response) {
-        if (radius <= 0.999999 || response <= 0) { // Adjusted to exclude numbers between 0 and 1
+        if (radius < 1.0 || response <= 0) { // Adjusted to exclude numbers between 0 and 1
             throw new IllegalArgumentException("Radius must be at least 1 and response must be positive.");
         }
 
