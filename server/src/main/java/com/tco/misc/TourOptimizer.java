@@ -1,5 +1,8 @@
 package com.tco.misc;
 import com.tco.requests.Places;
+import com.tco.requests.Place;
+import com.tco.misc.CalculatorFactory;
+import com.tco.misc.GreatCircleDistance;
 
 public abstract class TourOptimizer {
 
@@ -7,24 +10,24 @@ public abstract class TourOptimizer {
         if (radius <= 0 || response <= 0) {
             throw new IllegalArgumentException("Radius and response must be positive.");
         }
-        
-        switch (formula.toLowerCase()) {
-            case "greatcircle":
-                places = applyGreatCircleDistance(places);
-                break;
-            case "haversine":
-                places = applyHaversine(places);
-                break;
-            case "vincenty":
-                places = applyVincenty(places);
-                break;
-            case "cosines":
-                places = applyCosines(places);
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported formula: " + formula);
+
+        GreatCircleDistance calculator = CalculatorFactory.get(formula);
+        if (calculator == null) {
+            throw new IllegalArgumentException("Unsupported formula: " + formula);
         }
-        
+
+        // Use the calculator with the places
+        for (int i = 0; i < places.size(); i++) {
+            Place place1 = places.get(i);
+            for (int j = i + 1; j < places.size(); j++) {
+                Place place2 = places.get(j);
+
+                // Calculate distance between place1 and place2
+                Long distance = calculator.between(place1, place2, radius);
+
+            }
+        }
+
         places = initialOptimizationSetup(places, response);
         
         return places;
@@ -32,27 +35,6 @@ public abstract class TourOptimizer {
 
     public abstract void improve();
 
-    // Placeholder methods for different distance calculations and initial optimization setup
-    private Places applyGreatCircleDistance(Places places) {
-        // Implement distance calculation and modification of places here
-        return places;
-    }
-    
-    private Places applyHaversine(Places places) {
-        // Implement distance calculation and modification of places here
-        return places;
-    }
-    
-    private Places applyVincenty(Places places) {
-        // Implement distance calculation and modification of places here
-        return places;
-    }
-    
-    private Places applyCosines(Places places) {
-        // Implement distance calculation and modification of places here
-        return places;
-    }
-    
     private Places initialOptimizationSetup(Places places, Double response) {
         // Implement any initial setup or optimization logic here
         return places;
