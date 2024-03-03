@@ -7,8 +7,8 @@ import com.tco.misc.GreatCircleDistance;
 public abstract class TourOptimizer {
 
     public Places construct(Places places, Double radius, String formula, Double response) {
-        if (radius <= 0 || response <= 0) {
-            throw new IllegalArgumentException("Radius and response must be positive.");
+        if (radius <= 0.999999 || response <= 0) { // Adjusted to exclude numbers between 0 and 1
+            throw new IllegalArgumentException("Radius must be at least 1 and response must be positive.");
         }
 
         GreatCircleDistance calculator = CalculatorFactory.get(formula);
@@ -16,27 +16,16 @@ public abstract class TourOptimizer {
             throw new IllegalArgumentException("Unsupported formula: " + formula);
         }
 
-        // Use the calculator with the places
-        for (int i = 0; i < places.size(); i++) {
-            Place place1 = places.get(i);
-            for (int j = i + 1; j < places.size(); j++) {
-                Place place2 = places.get(j);
-
-                // Calculate distance between place1 and place2
-                Long distance = calculator.between(place1, place2, radius);
-
-            }
-        }
-
-        places = initialOptimizationSetup(places, response);
+        places = applyNearestNeighborOptimization(places, calculator, response); // Renamed and adjusted method call
         
         return places;
     }
 
     public abstract void improve();
 
-    private Places initialOptimizationSetup(Places places, Double response) {
-        // Implement any initial setup or optimization logic here
+    // Renamed and modified to accept GreatCircleDistance and implement nearest neighbor algorithm in the future
+    private Places applyNearestNeighborOptimization(Places places, GreatCircleDistance calculator, Double response) {
+        // Placeholder for nearest neighbor algorithm implementation
         return places;
     }
 }
