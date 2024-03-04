@@ -13,7 +13,8 @@ public class vincenty implements GreatCircleDistance {
         Double val2 = Math.sin(phi1)*Math.sin(phi2) + Math.cos(phi1)*Math.cos(phi2)*Math.cos(deltaLambda);
         Double result = Math.atan2(val1,val2);
         result*=radius;
-        return Math.round(result);
+        Long ret = Math.round(result);
+        return ret;
     }
     
 }

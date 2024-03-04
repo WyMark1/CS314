@@ -14,7 +14,8 @@ public class cosines implements GreatCircleDistance {
         Double cos = Math.cos(phi1) * Math.cos(phi2) * Math.cos(deltaLambda);
         Double result = Math.acos(sin + cos);
         result *= radius;
-        return Math.round(result); //May need to change this to not round not sure how we are supposed to do it yet.
+        Long ret = Math.round(result);
+        return ret;
     }
 
 }
