@@ -53,7 +53,7 @@ public class DistanceRequest extends Request {
 
     private void buildDistanceList() {
         if (places.size() >= 2) {
-            if (formula == null) { // Assuming default is vincenty, but can change to say if vincenty otherwise.
+            if (formula == null || formula.toLowerCase().equals("vincenty")) { 
                 addVincentyDistance();
             }
             else if (formula.toLowerCase().equals("haversine")) {
@@ -62,9 +62,7 @@ public class DistanceRequest extends Request {
             else if (formula.toLowerCase().equals("cosines")) {
                 addCosinesDistance();
             } 
-            else {
-                addVincentyDistance();
-            }
+
         }
         else if (places.size() == 1) {
             this.distances.add(0L);
