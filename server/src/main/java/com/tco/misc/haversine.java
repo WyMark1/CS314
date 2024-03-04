@@ -15,6 +15,7 @@ public class haversine implements GreatCircleDistance {
         Double cos = Math.pow(Math.cos((phi1 + phi2) / 2), 2);
         Double result = 2 * Math.asin(Math.sqrt(sinPhi + (cos - sinPhi) * sinLamba));
         result *= radius;
-        return Math.round(result);
+        Long ret = Math.round(result);
+        return ret;
     }
 }
