@@ -66,9 +66,10 @@ public class DistanceRequest extends Request {
                 addVincentyDistance();
             }
         }
-        else {
+        else if (places.size() == 1) {
             this.distances.add(0L);
-           
+        } else {
+            
         }
     }
 
