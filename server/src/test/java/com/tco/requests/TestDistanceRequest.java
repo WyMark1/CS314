@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestDistanceRequest {
 
     @Test 
-    @DisplayName("mstencel: Testing distances with 0 places to ensure distance value is 0.")
+    @DisplayName("mstencel: Testing distances with 0 places to ensure size is 0.")
     public void TestZeroPlaces() {
         Places places = new Places();
         Double radius = 31415.92;
@@ -23,7 +23,7 @@ public class TestDistanceRequest {
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
         disRequest.buildResponse();
-        assertEquals(result, (disRequest.getDistanceList()).get(0));
+        assertEquals(result, (disRequest.getDistanceList()).size());
     }
     
     @Test 
