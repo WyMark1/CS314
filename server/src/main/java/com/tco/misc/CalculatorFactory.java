@@ -4,7 +4,7 @@ public class CalculatorFactory {
 
     public CalculatorFactory() {}
 
-    public GreatCircleDistance get(String formula) {
+    public static GreatCircleDistance get(String formula) {
         
         String lower = formula.toLowerCase();
 
