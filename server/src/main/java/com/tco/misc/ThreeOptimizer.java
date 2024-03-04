@@ -1,6 +1,6 @@
 package com.tco.misc;
 
-public class ThreeOptimizer {
+public class ThreeOptimizer extends TourOptimizer {
   
     public ThreeOptimizer () {}
     
