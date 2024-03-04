@@ -4,4 +4,6 @@ public class ThreeOptimizer extends TourOptimizer {
   
     public ThreeOptimizer () {}
     
+    public improve () {}
+    
 }
