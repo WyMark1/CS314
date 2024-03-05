@@ -21,10 +21,15 @@ public class DistanceRequest extends Request {
 
     // Constructor
     public DistanceRequest(Places places, double earthRadius, String formula) {
-        this.places = places;
-        this.earthRadius = earthRadius;
-        this.formula = formula;
-        this.distances = new Distances(); // Initializes the distances collection
+        if(places == null){
+            throw new IllegalArgumentException("Places can not be null.");
+        }
+        else{ 
+            this.places = places;
+            this.earthRadius = earthRadius;
+            this.formula = formula;
+            this.distances = new Distances(); // Initializes the distances collection
+        }
     }
 
     private void addHaversineDistance() {
