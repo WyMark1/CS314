@@ -3,11 +3,11 @@ import com.tco.requests.Places;
 import com.tco.requests.Place;
 import com.tco.misc.CalculatorFactory;
 import com.tco.misc.GreatCircleDistance;
+import java.util.stream.IntStream;
 
 public abstract class TourOptimizer {
-
     public Places construct(Places places, Double radius, String formula, Double response) {
-        if (radius < 1.0 || response <= 0) { // Adjusted to exclude numbers between 0 and 1
+        if (radius < 1.0 || response < 0.0) { 
             throw new IllegalArgumentException("Radius must be at least 1 and response must be positive.");
         }
 
@@ -16,16 +16,86 @@ public abstract class TourOptimizer {
             throw new IllegalArgumentException("Unsupported formula: " + formula);
         }
 
-        places = applyNearestNeighborOptimization(places, calculator, response); // Renamed and adjusted method call
-        
+        if (places.size() < 4 || response == 0.0) return places;
+        long[][] distances = getDistances(places, calculator, radius);
+        places = applyNearestNeighborOptimization(places, distances, response); 
+
         return places;
     }
 
-    public abstract void improve();
+    public abstract void improve(Places places, long[][] distances, int[] tour);
 
-    // Renamed and modified to accept GreatCircleDistance and implement nearest neighbor algorithm in the future
-    private Places applyNearestNeighborOptimization(Places places, GreatCircleDistance calculator, Double response) {
-        // Placeholder for nearest neighbor algorithm implementation
-        return places;
+    private Places applyNearestNeighborOptimization(Places places, long[][] distances, Double response) {
+        int size = places.size();
+        Places new_places = new Places();
+        int[] best_tour = new int[size];
+        long min_distance = getTotalDistance(distances, IntStream.range(0, size).toArray());
+    
+        for (int i = 0; i < size; i++) {
+
+            /*if (response < 0.2 && i > 1000) { // This isn't correct yet we will have to figure out the proper numbers once we do more testing
+                break;
+            }*/
+
+            int[] current_tour = IntStream.range(0, size).toArray();
+            if (i != 0) {
+                int save = current_tour[0];
+                current_tour[0] = current_tour[i];
+                current_tour[i] = save;
+            }
+
+            for (int j = 0; j < size - 1; j++) {
+                int from = current_tour[j];
+                long best_distance = distances[from][current_tour[j+1]];
+                int best_place = j+1;
+                for (int k = j + 1 ; k < size; k++) {
+                    int to = current_tour[k];
+                    if (distances[from][to] < best_distance) {
+                        best_distance = distances[from][to];
+                        best_place = k;
+                    }
+                }
+
+                int save = current_tour[j+1];
+                current_tour[j+1] = current_tour[best_place];
+                current_tour[best_place] = save;
+            }
+
+            improve(places, distances, current_tour);
+
+            long current_min_distance = getTotalDistance(distances, current_tour);
+
+            if (current_min_distance < min_distance) {
+                min_distance = current_min_distance;
+                best_tour = current_tour;
+            }
+
+        }
+
+        for (int i = 0; i < size; i++) {
+            new_places.add(places.get(best_tour[i]));
+        }
+        return new_places;
+    }
+
+    private long[][] getDistances(Places places, GreatCircleDistance calculator, Double radius) {
+        int size = places.size();
+        long[][] distances = new long[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                distances[i][j] = calculator.between(places.get(i), places.get(j), radius);
+            }
+        }
+        return distances;
+    }
+
+    private int getTotalDistance(long[][] distances, int[] tour) {
+        int totalDistance = 0;
+        for (int i = 0; i < tour.length-1; i++) {
+            totalDistance += distances[tour[i]][tour[i+1]];
+        }
+        totalDistance += distances[tour.length-1][0];
+        return totalDistance;
     }
 }
