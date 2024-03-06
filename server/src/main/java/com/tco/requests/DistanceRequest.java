@@ -32,41 +32,19 @@ public class DistanceRequest extends Request {
         }
     }
 
-    private void addHaversineDistance() {
-        haversine haver = new haversine();
+    private void addDistance(String formula) {
+        CalculatorFactory calcFac = new CalculatorFactory();
+        GreatCircleDistance formulaType = calcFac.get(formula);
+        
         for (int i = 0; i < places.size() - 1; i++) {
-            distances.add(haver.between(places.get(i), places.get(i+1), earthRadius)); 
+            distances.add(formulaType.between(places.get(i), places.get(i+1), earthRadius)); 
         }
-        distances.add(haver.between(places.get(places.size()-1), places.get(0), earthRadius));
+        distances.add(formulaType.between(places.get(places.size()-1), places.get(0), earthRadius));
     }
 
-    private void addCosinesDistance() {
-        cosines cos = new cosines();
-        for (int i = 0; i < places.size() - 1; i++) {
-                distances.add(cos.between(places.get(i), places.get(i+1), earthRadius)); 
-        }
-        distances.add(cos.between(places.get(places.size()-1), places.get(0), earthRadius));
-    }
-
-    private void addVincentyDistance() {
-        vincenty vin = new vincenty();
-        for (int i = 0; i < places.size() - 1; i++) {
-            distances.add(vin.between(places.get(i), places.get(i+1), earthRadius)); 
-        }
-        distances.add(vin.between(places.get(places.size()-1), places.get(0), earthRadius));
-    }
-
-    private void buildDistanceList() {
+    private void buildDistanceList(String formula) {
         if (places.size() >= 2) {
-            if (formula == null || formula.toLowerCase().equals("vincenty")) { 
-                addVincentyDistance();
-            }
-            else if (formula.toLowerCase().equals("haversine")) {
-                addHaversineDistance();
-            }
-            else if (formula.toLowerCase().equals("cosines")) {
-                addCosinesDistance();
-            } 
+            addDistance(formula);
 
         }
         else if (places.size() == 1) {
@@ -89,7 +67,7 @@ public class DistanceRequest extends Request {
             this.formula = formula;
         }
         this.places = places;
-        buildDistanceList();
+        buildDistanceList(formula);
         log.trace("buildResponse -> {}", this);
     }
 

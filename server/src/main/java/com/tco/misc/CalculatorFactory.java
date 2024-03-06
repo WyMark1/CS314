@@ -6,16 +6,20 @@ public class CalculatorFactory {
 
     public static GreatCircleDistance get(String formula) {
         
-        String lower = formula.toLowerCase();
+        if (formula != null) {
+            String lower = formula.toLowerCase();
 
-        if (lower.equals("vincenty")) {
-            return new vincenty();
-        } else if (lower.equals("haversine")) {
-            return new haversine();
-        } else if (lower.equals("cosines")) {
-            return new cosines();
+            if (lower.equals("vincenty")) {
+                return new vincenty();
+            } else if (lower.equals("haversine")) {
+                return new haversine();
+            } else if (lower.equals("cosines")) {
+                return new cosines();
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            return new vincenty();
         }
     }
 }
