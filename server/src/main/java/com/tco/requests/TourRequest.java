@@ -27,34 +27,16 @@ public class TourRequest extends Request {
     @Override
     public void buildResponse() {
         this.requestType = "tour";
-        double totalDistance = 0.0;
-
-        for (int i = 0; i < places.size(); i++) {
-            Place currentPlace = places.get(i);
-            Place nextPlace = places.get((i + 1) % places.size()); 
-            totalDistance += calculateDistance(currentPlace, nextPlace);
-        }
-
-        this.response = totalDistance; 
+        OptimizerFactory optimizerFactory = new OptimizerFactory();
+        TourOptimizer optimizer = optimizerFactory.get(places.size(), response);
+        if (optimizer != null) {
+            this.places = optimizer.construct(places, earthRadius, formula, response);
+            log.info("Tour has been optimized.");
+        } else {
+            log.error("No suitable optimizer found for the given criteria.");
+        } 
+        this.response = response;
+        log.trace("buildResponse -> {}", this);
     }
-
-    private double calculateDistance(Place a, Place b) {
-        double lat1 = a.latRadians();
-        double lon1 = a.lonRadians();
-        double lat2 = b.latRadians();
-        double lon2 = b.lonRadians();
-    
-        double dLat = lat2 - lat1;
-        double dLon = lon2 - lon1;
-    
-        double radius = this.earthRadius; 
-    
-        double aVal = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                      Math.cos(lat1) * Math.cos(lat2) *
-                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(aVal), Math.sqrt(1 - aVal));
-        return radius * c;
-    }
-    
     
 }
