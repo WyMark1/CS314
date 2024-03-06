@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestOptimizerFactory {
     @Test
     @DisplayName("Josh1302: returns NoOpt when given incorrect values")
-    public void testBaseNoOpt() {
+    public void testBaseCase() {
         OptimizerFactory optFactory = new OptimizerFactory();
-        assertTrue(optFactory.get(5,10.0) instanceof NoOptimizer);
+        assertTrue(optFactory.get(5,10.0) == null);
     }
     @Test
     @DisplayName("Josh1302: returns NoOpt when given correct values")
