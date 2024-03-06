@@ -27,15 +27,21 @@ public class TourRequest extends Request {
     @Override
     public void buildResponse() {
         this.requestType = "tour";
+        this.response = response;
+        if (formula != null){
+            this.formula=formula;
+        }
+        this.places=places;
+        this.earthRadius=earthRadius;
         OptimizerFactory optimizerFactory = new OptimizerFactory();
-        TourOptimizer optimizer = optimizerFactory.get(places.size(), response);
+        TourOptimizer optimizer = optimizerFactory.get(1, response);
         if (optimizer != null) {
             this.places = optimizer.construct(places, earthRadius, formula, response);
             log.info("Tour has been optimized.");
         } else {
             log.error("No suitable optimizer found for the given criteria.");
         } 
-        this.response = response;
+        
         log.trace("buildResponse -> {}", this);
     }
     
