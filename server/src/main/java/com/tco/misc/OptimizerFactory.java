@@ -14,7 +14,7 @@ public class OptimizerFactory {
             return new ThreeOptimizer();
         }
         else{
-            return new NoOptimizer();
+            return null;
         }
     }
 }
