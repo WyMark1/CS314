@@ -4,7 +4,7 @@ public class OptimizerFactory {
     public OptimizerFactory(){}
 
     public TourOptimizer get(int N, Double response){
-        if(N <=1 || response < 0.25 ){
+        if(N <=1 || response <= 0.25 ){
             return new NoOptimizer();
         }
         else if(N ==2 || response <= 0.6){
