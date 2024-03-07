@@ -92,3 +92,4 @@ public class TestTourRequest {
         assertEquals(expectedPlaces, tourRequest.getPlaces());
 
     }
+}
