@@ -24,6 +24,10 @@ public class TourRequest extends Request {
         this.response = response;
     }
 
+    public Places getPlaces() {
+        return places;
+    }
+
     @Override
     public void buildResponse() {
         this.requestType = "tour";
