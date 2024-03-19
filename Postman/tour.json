@@ -14,12 +14,13 @@
 					"script": {
 						"id": "b4548d61-ca51-433a-81e0-de5fc7ef1656",
 						"exec": [
-							"pm.test(\"Response is HTTP400 status\", () => {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
 							"});",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -32,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"tour\"\n}",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"earthRadius\": 1,\n    \"places\" : [],\n    \"response\" : 1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
