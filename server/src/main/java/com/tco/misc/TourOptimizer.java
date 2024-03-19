@@ -30,12 +30,15 @@ public abstract class TourOptimizer {
         Places new_places = new Places();
         int[] best_tour = new int[size];
         long min_distance = getTotalDistance(distances, IntStream.range(0, size).toArray());
+        double num_places_double = (600.994 * response) + 102.436;
+        int num_places = (int) Math.round(num_places_double);
+
     
         for (int i = 0; i < size; i++) {
 
-            /*if (response < 0.2 && i > 1000) { // This isn't correct yet we will have to figure out the proper numbers once we do more testing
+            if (i == num_places) { 
                 break;
-            }*/
+            }
 
             int[] current_tour = IntStream.range(0, size).toArray();
             if (i != 0) {
