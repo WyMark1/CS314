@@ -9,6 +9,9 @@ import com.tco.requests.Places;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Represents a request to optimize a tour of places according to a specific formula and criteria.
+ */
 public class TourRequest extends Request {
 
     private Places places;
@@ -16,6 +19,15 @@ public class TourRequest extends Request {
     private String formula;
     private double response;
     private static final transient Logger log = LoggerFactory.getLogger(TourRequest.class);
+
+    /**
+     * Constructs a TourRequest with the provided parameters.
+     * 
+     * @param places the set of places to be included in the tour
+     * @param earthRadius the radius of Earth used in distance calculations
+     * @param formula the formula to use for optimizing the tour
+     * @param response initial response value, potentially used in optimization
+     */
 
     public TourRequest(Places places, double earthRadius, String formula, double response) {
         this.places = places;
@@ -28,6 +40,10 @@ public class TourRequest extends Request {
         return places;
     }
 
+    /**
+     * Builds the optimized tour response. Utilizes an optimization strategy based on the specified formula
+     * and current response value. Logs the outcome of the optimization process.
+     */
     @Override
     public void buildResponse() {
         this.requestType = "tour";
