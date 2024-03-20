@@ -20,14 +20,15 @@ public class DistanceRequest extends Request {
     private static final transient Logger log = LoggerFactory.getLogger(DistanceRequest.class);
 
     public DistanceRequest(Places places, double earthRadius, String formula) {
-        if(places == null){
+        if(places == null) {
             throw new IllegalArgumentException("Places can not be null.");
         }
-        else{ 
+        else { 
             this.places = places;
             this.earthRadius = earthRadius;
             this.formula = formula;
             this.distances = new Distances();
+        }
     }
 
     private void addDistance(String formula) {
@@ -65,6 +66,7 @@ public class DistanceRequest extends Request {
         if (formula != null) {
             this.formula = formula;
         }
+        
         this.places = places;
         buildDistanceList(formula);
         log.trace("buildResponse -> {}", this);
