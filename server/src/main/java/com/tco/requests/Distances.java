@@ -8,7 +8,6 @@ public class Distances extends ArrayList<Long> {
         for (Long distance : this) {
             sum += distance;
         }
-
         return sum;
-}
+    }
 }

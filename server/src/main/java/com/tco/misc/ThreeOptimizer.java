@@ -8,5 +8,4 @@ public class ThreeOptimizer extends TourOptimizer {
     public ThreeOptimizer () {}
     
     public void improve (Places places, long[][] distances, int[] tour) {}
-    
 }

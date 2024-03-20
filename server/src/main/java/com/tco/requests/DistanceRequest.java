@@ -19,16 +19,15 @@ public class DistanceRequest extends Request {
     private String formula; 
     private static final transient Logger log = LoggerFactory.getLogger(DistanceRequest.class);
 
-    // Constructor
     public DistanceRequest(Places places, double earthRadius, String formula) {
-        if(places == null){
+        if(places == null) {
             throw new IllegalArgumentException("Places can not be null.");
         }
-        else{ 
+        else { 
             this.places = places;
             this.earthRadius = earthRadius;
             this.formula = formula;
-            this.distances = new Distances(); // Initializes the distances collection
+            this.distances = new Distances();
         }
     }
 
@@ -39,18 +38,19 @@ public class DistanceRequest extends Request {
         for (int i = 0; i < places.size() - 1; i++) {
             distances.add(formulaType.between(places.get(i), places.get(i+1), earthRadius)); 
         }
+
         distances.add(formulaType.between(places.get(places.size()-1), places.get(0), earthRadius));
     }
 
     private void buildDistanceList(String formula) {
         if (places.size() >= 2) {
             addDistance(formula);
-
         }
         else if (places.size() == 1) {
             this.distances.add(0L);
-        } else {
-            
+        } 
+        else {
+
         }
     }
 
@@ -66,9 +66,9 @@ public class DistanceRequest extends Request {
         if (formula != null) {
             this.formula = formula;
         }
+        
         this.places = places;
         buildDistanceList(formula);
         log.trace("buildResponse -> {}", this);
     }
-
 }

@@ -19,7 +19,6 @@ public abstract class TourOptimizer {
         if (places.size() < 4 || response == 0.0) return places;
         long[][] distances = getDistances(places, calculator, radius);
         places = applyNearestNeighborOptimization(places, distances, response); 
-
         return places;
     }
 
@@ -33,9 +32,7 @@ public abstract class TourOptimizer {
         double num_places_double = (600.994 * response) + 102.436;
         int num_places = (int) Math.round(num_places_double);
 
-    
         for (int i = 0; i < size; i++) {
-
             if (i == num_places) { 
                 break;
             }
@@ -65,19 +62,18 @@ public abstract class TourOptimizer {
             }
 
             improve(places, distances, current_tour);
-
             long current_min_distance = getTotalDistance(distances, current_tour);
 
             if (current_min_distance < min_distance) {
                 min_distance = current_min_distance;
                 best_tour = current_tour;
             }
-
         }
 
         for (int i = 0; i < size; i++) {
             new_places.add(places.get(best_tour[i]));
         }
+
         return new_places;
     }
 
@@ -98,6 +94,7 @@ public abstract class TourOptimizer {
         for (int i = 0; i < tour.length-1; i++) {
             totalDistance += distances[tour[i]][tour[i+1]];
         }
+        
         totalDistance += distances[tour.length-1][0];
         return totalDistance;
     }
