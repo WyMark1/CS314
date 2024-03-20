@@ -27,7 +27,7 @@ public abstract class TourOptimizer {
     private Places applyNearestNeighborOptimization(Places places, long[][] distances, Double response) {
         int size = places.size();
         Places new_places = new Places();
-        int[] best_tour = new int[size];
+        int[] best_tour = IntStream.range(0, size).toArray();
         long min_distance = getTotalDistance(distances, IntStream.range(0, size).toArray());
         double num_places_double = (600.994 * response) + 102.436;
         int num_places = (int) Math.round(num_places_double);
