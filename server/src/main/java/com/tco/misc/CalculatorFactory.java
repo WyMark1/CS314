@@ -18,8 +18,10 @@ public class CalculatorFactory {
             } else {
                 return null;
             }
-        } else {
+        } 
+        else {
             return new vincenty();
         }
+
     }
 }
