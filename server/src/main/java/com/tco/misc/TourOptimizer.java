@@ -4,6 +4,7 @@ import com.tco.requests.Place;
 import com.tco.misc.CalculatorFactory;
 import com.tco.misc.GreatCircleDistance;
 import java.util.stream.IntStream;
+import java.util.Collections;
 
 public abstract class TourOptimizer {
     public Places construct(Places places, Double radius, String formula, Double response) {
@@ -73,6 +74,9 @@ public abstract class TourOptimizer {
         for (int i = 0; i < size; i++) {
             new_places.add(places.get(best_tour[i]));
         }
+
+        int index = new_places.indexOf(places.get(0));
+        Collections.rotate(new_places, -index);
 
         return new_places;
     }

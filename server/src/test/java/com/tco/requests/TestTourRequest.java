@@ -83,10 +83,10 @@ public class TestTourRequest {
         places.add(place2);
         places.add(place3);
         places.add(place4);
-        expectedPlaces.add(place2);
         expectedPlaces.add(place1);
         expectedPlaces.add(place3);
         expectedPlaces.add(place4);
+        expectedPlaces.add(place2);
         TourRequest tourRequest = new TourRequest(places, radius, formula, response);
         tourRequest.buildResponse();
         assertEquals(expectedPlaces, tourRequest.getPlaces());
