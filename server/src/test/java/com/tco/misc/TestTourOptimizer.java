@@ -53,10 +53,10 @@ public class TestTourOptimizer {
         places.add(place2);
         places.add(place3);
         places.add(place4);
-        result.add(place2);
         result.add(place1);
         result.add(place3);
         result.add(place4);
+        result.add(place2);
         Double radius = 3958.8;
         String formula = "vincenty";
         Double response = 0.1;
