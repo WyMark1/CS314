@@ -15,10 +15,9 @@ public class GeographicLocations {
         return places;
     }
 
-}
-
     public Distances distances() {
         Distances distances = new Distances();
         return distances;
     }
+    
 }
