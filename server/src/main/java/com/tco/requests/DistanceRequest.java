@@ -49,9 +49,6 @@ public class DistanceRequest extends Request {
         else if (places.size() == 1) {
             this.distances.add(0L);
         } 
-        else {
-
-        }
     }
 
     public Distances getDistanceList() {
