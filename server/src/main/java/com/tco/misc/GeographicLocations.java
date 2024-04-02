@@ -19,5 +19,7 @@ public class GeographicLocations {
         Distances distances = new Distances();
         return distances;
     }
-    
+    public Integer found(){
+        return 0;
+    }
 }
