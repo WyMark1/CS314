@@ -19,11 +19,13 @@ public class GeographicLocations {
         Distances distances = new Distances();
         return distances;
     }
-    
-
+josh1302-add-find-to-geoloc
+     public Integer found(){
+        return 0;
+}
 
     public Places find(String match, String type, String where, int limit) {
         Places places = new Places();
-        return places;
+        return places; main
     }
 }

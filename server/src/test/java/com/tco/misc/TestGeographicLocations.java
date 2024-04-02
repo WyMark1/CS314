@@ -33,6 +33,17 @@ public class TestGeographicLocations {
         Distances distances = locations.distances();
         assertNotNull(distances);
     }
+    @Test
+    @DisplayName("josh1302: Testing base case for found")
+    public void TestFound() {
+        GeographicLocations geoloc = new GeographicLocations();
+        Place place = new Place(0.0, 0.0); 
+        int distance = 0;
+        double eathRadius = 0.0;
+        String formula = null;
+        int limit = 0;
+        assertEquals(0, geoloc.found());
+    }
 
 
 
