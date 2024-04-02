@@ -20,4 +20,10 @@ public class GeographicLocations {
         return distances;
     }
     
+
+
+    public Places find(String match, String type, String where, int limit) {
+        Places places = new Places();
+        return places;
+    }
 }
