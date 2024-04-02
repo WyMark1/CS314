@@ -44,17 +44,6 @@ public class TestGeographicLocations {
         int limit = 0;
         assertEquals(0, geoloc.found());
     }
-
-
-
-
-
-
-
-
-
-
-
     @Test
     @DisplayName("josh1302: Testing base case for find")
     public void TestFind() {
