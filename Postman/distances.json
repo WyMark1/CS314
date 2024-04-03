@@ -51,6 +51,62 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "testDistanceRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "afee1500-b7ca-4550-9ca7-6c181368755a",
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"var distances = responseBody.distances;\r",
+							"var expectedDistances = [9059423, 10354911, 17008589, 6689694];\r",
+							"\r",
+							"pm.test(\"Number of distances matches\", function () {\r",
+							"    pm.expect(distances.length).to.eql(expectedDistances.length);\r",
+							"});\r",
+							"\r",
+							"for (var i = 0; i < expectedDistances.length; i++) {\r",
+							"    pm.test(\"Distance \" + i + \" matches\", function () {\r",
+							"        pm.expect(distances[i]).to.eql(expectedDistances[i]);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "82a1cf9d-7657-4f8d-9ffc-738243dacb52",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [\r\n        {\"name\": \"Grand Rapids, USA\", \"latitude\": \"42.9634\", \"longitude\": \"-85.6681\"},\r\n        {\"name\": \"Buenos Aires, Argentina\", \"latitude\": \"-34.6037\", \"longitude\": \"-58.3816\"},\r\n        {\"name\": \"Auckland, New Zealand\", \"latitude\": \"-36.8485\", \"longitude\": \"174.7633\"},\r\n        {\"name\": \"Stockholm, Sweden\", \"latitude\": \"59.3293\", \"longitude\": \"18.0686\"}\r\n    ],\r\n    \"earthRadius\": 6371008.7714,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
