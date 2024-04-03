@@ -44,6 +44,16 @@ public class TestGeographicLocations {
         int limit = 0;
         assertEquals(0, geoloc.found());
     }
-
+    @Test
+    @DisplayName("josh1302: Testing base case for find")
+    public void TestFind() {
+        GeographicLocations geoloc = new GeographicLocations();
+       String where = "";
+        String match = "";
+        String type = "";
+        int limit = 0;
+        Places result = new Places();
+        assertEquals(result, geoloc.find(match,type,where,limit));
+    }
 }
 

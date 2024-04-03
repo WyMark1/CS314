@@ -19,7 +19,11 @@ public class GeographicLocations {
         Distances distances = new Distances();
         return distances;
     }
-    public Integer found(){
+     public Integer found(){
         return 0;
+}
+    public Places find(String match, String type, String where, int limit) {
+        Places places = new Places();
+        return places;
     }
 }
