@@ -9,15 +9,16 @@ import java.util.HashMap;
 
 public class sendSQL {
     
-    public static ResultSet performQuery(String sql) throws Exception {
+    public sendSQL() {
+
+    }
+    
+    public ResultSet performQuery(String sql) throws Exception {
         return null;
     }
 
-    public static Places places(String sql) throws Exception {
+    public Places places(String sql) throws Exception {
         return null;
-    }
-
-    static class Credential {
     }
 
 }
