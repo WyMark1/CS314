@@ -18,6 +18,9 @@ public class sendSQL {
     }
 
     static class Credential {
+        final static String USER = "cs314-db";
+		final static String PASSWORD = "eiK5liet1uej";
+        final static String URL = "jdbc:mariadb://localhost:41311/cs314";
     }
 
 }
