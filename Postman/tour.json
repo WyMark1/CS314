@@ -52,6 +52,61 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "testTourRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d42ffb45-8788-490a-a1ae-c92922d085fe",
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"var places = responseBody.places;\r",
+							"var expectedPlaces = [\"Cairo\", \"Budapest\", \"Domagnano\", \"Munlochy\", \"Florida\", \"L'Hospitalet de Llobregat\", \"Ban Dongkhamxang\", \"Seychelles\"];\r",
+							"pm.test(\"First place is the same\", function () {\r",
+							"    pm.expect(places[0].name).to.eql(\"Cairo\");\r",
+							"});\r",
+							"\r",
+							"for (var i = 0; i < expectedPlaces.length; i++) {\r",
+							"    pm.test(\"Place \" + i + \" matches\", function () {\r",
+							"        pm.expect(places[i].name).to.eql(expectedPlaces[i]);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "59dfbd5b-a13b-4c55-a6fa-cd0568be348c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"tour\",\r\n  \"earthRadius\": 3959.0,\r\n  \"response\": 0.5,\r\n  \"places\": [\r\n    {\r\n      \"name\": \"Cairo\", \r\n      \"latitude\": \"30.022104\", \r\n      \"longitude\": \"31.223383\",\r\n      \"municipality\": \"Cairo\",\r\n      \"region\": \"Cairo\",\r\n      \"country\": \"Egypt\"\r\n    },\r\n    {\r\n      \"name\": \"Budapest\", \r\n      \"latitude\": \"47.459594\", \r\n      \"longitude\": \"19.091061\",\r\n      \"municipality\": \"Budapest\",\r\n      \"region\": \"Central Hungary\",\r\n      \"country\": \"Hungary\" \r\n    },\r\n    {\r\n      \"name\": \"Domagnano\", \r\n      \"latitude\": \"43.9504\", \r\n      \"longitude\": \"12.4654\",\r\n      \"municipality\": \"Domagnano\",\r\n      \"region\": \"Domagnano\",\r\n      \"country\": \"San Marino\" \r\n    },\r\n    {\r\n      \"name\": \"Munlochy\", \r\n      \"latitude\": \"57.3157\", \r\n      \"longitude\": \"4.1809\",\r\n      \"municipality\": \"Munlochy\", \r\n      \"region\": \"Scotland\", \r\n      \"country\": \"United Kingdom\"\r\n    },\r\n    {\r\n      \"name\": \"Florida\", \r\n      \"latitude\": \"-34.099262\", \r\n      \"longitude\": \"-56.225803\",\r\n      \"municipality\": \"Florida\",\r\n      \"region\": \"Florida\",\r\n      \"country\": \"Uruguay\"\r\n    },\r\n    {\r\n      \"name\": \"L'Hospitalet de Llobregat\", \r\n      \"latitude\": \"41.359254\", \r\n      \"longitude\": \"2.110861\",\r\n      \"municipality\": \"L'Hospitalet de Llobregat\", \r\n      \"region\": \"Barcelona\", \r\n      \"country\": \"Spain\"\r\n    },\r\n    {\r\n      \"name\": \"Seychelles\", \r\n      \"latitude\": \"-4.6501315\",\r\n      \"longitude\": \"55.4318313\",\r\n      \"municipality\": \"Seychelles\",\r\n      \"region\": \"Seychelles\",\r\n      \"country\": \"Seychelles\"\r\n    },\r\n    {\r\n      \"name\": \"Ban Dongkhamxang\", \r\n      \"latitude\": \"17.872100\",\r\n      \"longitude\": \"102.656436\",\r\n      \"municipality\": \"Ban Dongkhamxang\",\r\n      \"region\": \"Venitiane\",\r\n      \"country\": \"Laos\" \r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
