@@ -12,10 +12,12 @@ public class sendSQL {
     final static String PASSWORD = "eiK5liet1uej";
     final static String URL = "jdbc:mariadb://localhost:41311/cs314";
 
-    
-    public sendSQL() {
 
+    public Integer found(){
+        return 0;
     }
+    
+    public sendSQL() {}
     
     public ResultSet performQuery(String sql) throws Exception {
         return null;
