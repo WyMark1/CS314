@@ -12,6 +12,7 @@ public class sendSQL {
     final static String PASSWORD = "eiK5liet1uej";
     final static String URL = "jdbc:mariadb://localhost:41311/cs314";
 
+
     public Integer found(){
         return 0;
     }

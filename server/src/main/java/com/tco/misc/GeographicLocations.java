@@ -15,13 +15,15 @@ public class GeographicLocations {
         return places;
     }
 
-    public Distances distances() {
+    public Distances distances(Place place, Places places) {
         Distances distances = new Distances();
         return distances;
     }
-     public Integer found(){
+
+    public Integer found() {
         return 0;
-}
+    }
+    
     public Places find(String match, String type, String where, int limit) {
         Places places = new Places();
         return places;
