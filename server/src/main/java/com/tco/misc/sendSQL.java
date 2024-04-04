@@ -19,10 +19,12 @@ public class sendSQL {
     
     public sendSQL() {}
     
-    public ResultSet performQuery(String sql) throws Exception {
-        return null;
-    }
-
+    public ResultSet performQuery (String sql) throws Exception {
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        Statement query = conn.createStatement();
+        ResultSet results = query.executeQuery(sql);
+        return results;
+}
     public Places places(String sql) throws Exception {
         return null;
     }
