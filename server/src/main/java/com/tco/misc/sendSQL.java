@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class sendSQL {
+    final static String USER = "cs314-db";
+    final static String PASSWORD = "eiK5liet1uej";
+    final static String URL = "jdbc:mariadb://localhost:41311/cs314";
+
     
     public sendSQL() {
 
