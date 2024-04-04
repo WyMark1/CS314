@@ -5,16 +5,16 @@ import com.tco.misc.cosines;
 import com.tco.misc.haversine;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.tco.misc.BadRequestException;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCalculatorFactory {
     
     @Test
-    @DisplayName("wymark: returns null when given an incorrect formula")
+    @DisplayName("wymark: returns vincenty when given null")
     public void testBaseCase() {
         CalculatorFactory calcFactory = new CalculatorFactory();
-        assertTrue(calcFactory.get("Random Incorrect Formula") == null);
+        assertTrue(calcFactory.get(null) instanceof vincenty);
     }
 
     @Test
@@ -36,6 +36,18 @@ public class TestCalculatorFactory {
     public void testFormulaIsCosines() {
         CalculatorFactory calcFactory = new CalculatorFactory();
         assertTrue(calcFactory.get("cosines") instanceof cosines);
+    }
+
+    @Test
+    @DisplayName("mstencel: Throws BadRequestException when given an incorrect formula")
+    public void testIncorrectFormula() {
+        CalculatorFactory calcFactory = new CalculatorFactory();
+        try {
+        calcFactory.get("Random Incorrect Formula");
+            fail("Expected BadRequestException was not thrown");
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 
 }

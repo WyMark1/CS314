@@ -13,11 +13,16 @@ public class sendSQL {
     final static String URL = "jdbc:mariadb://localhost:41311/cs314";
 
     
-    public static ResultSet performQuery(String sql) throws Exception {
+    public sendSQL() {
+
+    }
+    
+    public ResultSet performQuery(String sql) throws Exception {
         return null;
     }
 
-    public static Places places(String sql) throws Exception {
+    public Places places(String sql) throws Exception {
         return null;
     }
+
 }

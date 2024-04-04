@@ -4,7 +4,7 @@ public class CalculatorFactory {
 
     public CalculatorFactory() {}
 
-    public static GreatCircleDistance get(String formula) {
+    public static GreatCircleDistance get(String formula) throws IllegalArgumentException {
         
         if (formula != null) {
             String lower = formula.toLowerCase();
@@ -16,7 +16,7 @@ public class CalculatorFactory {
             } else if (lower.equals("cosines")) {
                 return new cosines();
             } else {
-                return null;
+                throw new IllegalArgumentException("Unsupported formula: " + formula);
             }
         } 
         else {
