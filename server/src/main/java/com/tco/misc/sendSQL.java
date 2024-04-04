@@ -11,11 +11,6 @@ public class sendSQL {
     final static String USER = "cs314-db";
     final static String PASSWORD = "eiK5liet1uej";
     final static String URL = "jdbc:mariadb://localhost:41311/cs314";
-
-
-    public Integer found(){
-        return 0;
-    }
     
     public sendSQL() {}
     
@@ -24,9 +19,25 @@ public class sendSQL {
         Statement query = conn.createStatement();
         ResultSet results = query.executeQuery(sql);
         return results;
-}
+    }
+    
     public Places places(String sql) throws Exception {
-        return null;
+        ResultSet results = performQuery(sql);
+		String[] cols = {"world.id", "world.name", "world.municipality", "region.name", "country.name", "world.latitude", "world.longitude", "world.altitude", "world.type"};
+		Places places = new Places();
+		while (results.next()) {
+		    Place place = new Place();
+			for (String col : cols) {
+				place.put(col, results.getString(col));
+			}
+
+			places.add(place);
+		}
+		return places;
+    }
+
+    public Integer found(){
+        return 0;
     }
 
 }
