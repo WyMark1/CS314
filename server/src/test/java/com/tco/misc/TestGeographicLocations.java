@@ -29,8 +29,10 @@ public class TestGeographicLocations {
     @Test
     @DisplayName("hca1197: Simple distances method check.")
     public void testDistancesNull() {
+        Place place = new Place();
+        Places places = new Places();
         GeographicLocations locations = new GeographicLocations();
-        Distances distances = locations.distances();
+        Distances distances = locations.distances(place, places);
         assertNotNull(distances);
     }
     @Test
