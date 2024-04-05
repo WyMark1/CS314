@@ -1,3 +1,5 @@
+package com.tco.misc;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,14 +16,20 @@ public class sendSQL {
     
     public sendSQL() {}
     
-    public ResultSet performQuery (String sql) throws Exception {
-        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        Statement query = conn.createStatement();
-        ResultSet results = query.executeQuery(sql);
-        return results;
+    public ResultSet performQuery (String sql) throws BadRequestException {
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement query = conn.createStatement();
+            ResultSet results = query.executeQuery(sql);
+            return results;
+        } catch (Exception e){
+            BadRequestException BRE = new BadRequestException("Invalid Query", e);
+            throw BRE;
+        }
     }
     
-    public Places places(String sql) throws Exception {
+    public Places places(String sql) throws BadRequestException {
+        try {
         ResultSet results = performQuery(sql);
 		String[] cols = {"world.id", "world.name", "world.municipality", "region.name", "country.name", "world.latitude", "world.longitude", "world.altitude", "world.type"};
 		Places places = new Places();
@@ -34,6 +42,10 @@ public class sendSQL {
 			places.add(place);
 		}
 		return places;
+        } catch (Exception e) {
+            BadRequestException BRE = new BadRequestException("Invalid Query", e);
+            throw BRE;
+        }
     }
 
     public Integer found(){

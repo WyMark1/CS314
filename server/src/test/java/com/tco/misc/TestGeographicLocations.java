@@ -21,7 +21,11 @@ public class TestGeographicLocations {
         String formula = null;
         int limit = 0;
         Places result = new Places();
-        assertEquals(result, geoloc.near(place,distance,eathRadius,formula,limit));
+        try {
+            assertEquals(result, geoloc.near(place,distance,eathRadius,formula,limit));
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
 
@@ -35,6 +39,7 @@ public class TestGeographicLocations {
         Distances distances = locations.distances(place, places);
         assertNotNull(distances);
     }
+
     @Test
     @DisplayName("josh1302: Testing base case for found")
     public void TestFound() {

@@ -3,6 +3,8 @@ package com.tco.misc;
 import com.tco.requests.Places;
 import com.tco.requests.Place;
 import com.tco.requests.Distances;
+import com.tco.misc.sendSQL;
+import com.tco.misc.BadRequestException;
 
 public class GeographicLocations {
 
@@ -10,7 +12,7 @@ public class GeographicLocations {
 
     }
 
-    public Places near(Place place, int distance, double eathRadius, String formula, int limit) {
+    public Places near(Place place, int distance, double eathRadius, String formula, int limit) throws BadRequestException {
         Places places = new Places();
         return places;
     }
