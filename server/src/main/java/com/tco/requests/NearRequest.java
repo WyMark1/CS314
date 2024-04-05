@@ -3,7 +3,7 @@ import com.tco.requests.Place;
 import com.tco.requests.Places;
 import com.tco.requests.Distances;
 import com.tco.misc.GeographicLocations;
-
+import com.tco.misc.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +38,7 @@ public class NearRequest extends Request{
     }
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         this.requestType = "near";
         this.place = place;
         this.distance = distance;

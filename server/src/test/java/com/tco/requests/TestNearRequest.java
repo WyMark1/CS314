@@ -6,6 +6,7 @@ import com.tco.requests.Distances;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestNearRequest {
 
@@ -18,7 +19,11 @@ public class TestNearRequest {
         String formula = null;
         Integer limit = 0;
         NearRequest request = new NearRequest(place, distance, earthRadius, formula, limit);
-        request.buildResponse();
+        try {
+            request.buildResponse();
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
         assertEquals(request.getPlaces().size(), 0);
     }
 
@@ -32,7 +37,11 @@ public class TestNearRequest {
         Integer limit = 0;
         Distances expected = new Distances();
         NearRequest request = new NearRequest(place, distance, earthRadius, formula, limit);
-        request.buildResponse();
+        try {
+            request.buildResponse();
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
         assertEquals(request.getDistances(), expected);
     }
 
@@ -45,7 +54,11 @@ public class TestNearRequest {
         String formula = null;
         Integer limit = 1;
         NearRequest request = new NearRequest(place, distance, earthRadius, formula, limit);
-        request.buildResponse();
+        try {
+            request.buildResponse();
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
         assertEquals(request.getFormula(), formula);
     }
 }
