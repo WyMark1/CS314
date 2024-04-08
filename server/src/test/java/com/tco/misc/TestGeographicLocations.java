@@ -1,9 +1,10 @@
 package com.tco.misc;
 
-import com.tco.misc.GeographicLocations;
+import com.tco.misc.*;
 import com.tco.requests.Places;
 import com.tco.requests.Place;
 import com.tco.requests.Distances;
+import com.tco.requests.DistanceRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,8 +34,10 @@ public class TestGeographicLocations {
     public void testDistancesNull() {
         Place place = new Place();
         Places places = new Places();
+        double earthRadius = 0.0;
+        String formula = null;
         GeographicLocations locations = new GeographicLocations();
-        Distances distances = locations.distances(place, places);
+        Distances distances = locations.distances(place, places, earthRadius, formula);
         assertNotNull(distances);
     }
 
@@ -144,6 +147,36 @@ public class TestGeographicLocations {
             Places expected = new Places();
             expected.add(place1);
             assertEquals(expected, result);
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("mstencel9: Testing distances with 3 locations")
+    public void TestDistances() {
+        try {
+            GeographicLocations geoloc = new GeographicLocations();
+            CalculatorFactory calcFac = new CalculatorFactory();
+            Place location1 = new Place(1.0, 1.0);
+            Place location2 = new Place(2.0, 2.0);
+            Place location3 = new Place(3.0, 3.0);
+            Place place = new Place(0.0, 0.0);
+            Places places = new Places();
+            double earthRadius = 3959.0;
+            String formula = "vincenty";
+            GreatCircleDistance formulaType = calcFac.get(formula);
+            places.add(location1);
+            places.add(location2);
+            places.add(location3);
+            Distances distancesList = new Distances();
+            distancesList.add(formulaType.between(place, places.get(0), earthRadius));
+            distancesList.add(formulaType.between(place, places.get(1), earthRadius));
+            distancesList.add(formulaType.between(place, places.get(2), earthRadius));
+            Distances result = geoloc.distances(place, places, earthRadius, formula);
+            assertEquals(distancesList.get(0), result.get(0));
+            assertEquals(distancesList.get(1), result.get(1));
+            assertEquals(distancesList.get(2), result.get(2));
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
         }

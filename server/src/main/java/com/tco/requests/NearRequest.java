@@ -49,7 +49,7 @@ public class NearRequest extends Request{
         this.limit = limit;
         GeographicLocations geoLoc = new GeographicLocations();
         this.places = geoLoc.near(place, distance, earthRadius, formula, limit);
-        this.distances = geoLoc.distances(place, places);
+        this.distances = geoLoc.distances(place, places, earthRadius, formula);
         log.trace("buildResponse -> {}", this);
     }
 }
