@@ -16,8 +16,8 @@ public class TestGeographicLocations {
     public void TestBaseCase() {
         GeographicLocations geoloc = new GeographicLocations();
         Place place = new Place(0.0, 0.0); 
-        int distance = 0;
-        double eathRadius = 0.0;
+        int distance = 1;
+        double eathRadius = 1.0;
         String formula = null;
         int limit = 0;
         Places result = new Places();
@@ -27,8 +27,6 @@ public class TestGeographicLocations {
             fail("Exception occurred: " + e.getMessage());
         }
     }
-
-
 
     @Test
     @DisplayName("hca1197: Simple distances method check.")
@@ -112,6 +110,39 @@ public class TestGeographicLocations {
             expected.add(place1);
             expected.add(place2);
             expected.add(place3);
+            assertEquals(expected, result);
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("hca1197:testing near with a place very far from the start location")
+    public void TestNearWithDynamicLatAndLon() {
+        try {
+            GeographicLocations geoloc = new GeographicLocations();
+            int distance = 400;
+            double earthRadius = 3959.0;
+            String formula = "vincenty";
+            int limit = 1;
+            Place place1 = new Place();
+            Place location = new Place();
+            Places result = new Places();
+            location.put("name", "NUll bouy");
+            location.put("latitude", "0.0");
+            location.put("longitude", "0.0");
+            place1.put("id", "DGAA");
+            place1.put("name", "Kotoka International Airport");
+            place1.put("municipality", "Accra");
+            place1.put("region", "Greater Accra Region");
+            place1.put("country", "Ghana");
+            place1.put("latitude", "5.605189800262451");
+            place1.put("longitude", "-0.16678600013256073");
+            place1.put("altitude", "205");
+            place1.put("type", "large_airport");
+            result = geoloc.near(location, distance, earthRadius, formula, limit);
+            Places expected = new Places();
+            expected.add(place1);
             assertEquals(expected, result);
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
