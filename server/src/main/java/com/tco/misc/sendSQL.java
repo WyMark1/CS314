@@ -13,6 +13,7 @@ public class sendSQL {
     final static String USER = "cs314-db";
     final static String PASSWORD = "eiK5liet1uej";
     final static String URL = "jdbc:mariadb://faure.cs.colostate.edu/cs314";
+    private Integer resultCount;
     
     public sendSQL() {}
     
@@ -21,6 +22,7 @@ public class sendSQL {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement query = conn.createStatement();
             ResultSet results = query.executeQuery(sql);
+            resultCount = getResult(results);
             return results;
         } catch (Exception e){
             BadRequestException BRE = new BadRequestException("Invalid Query preform query: " + e.getMessage(), e);
@@ -48,8 +50,22 @@ public class sendSQL {
         }
     }
 
-    public Integer found(){
-        return 0;
+    public Integer found() {
+        return resultCount != null ? resultCount : 0;
+    }
+
+    private int getResult(ResultSet resultSet) throws BadRequestException {
+        int count = 0;
+        try {
+            resultSet.last();
+            count = resultSet.getRow();
+            resultSet.beforeFirst();
+
+        } catch (Exception e) {
+            BadRequestException BRE = new BadRequestException("Places: " + e.getMessage(), e);
+            throw BRE;
+        }
+        return count;
     }
 
 }

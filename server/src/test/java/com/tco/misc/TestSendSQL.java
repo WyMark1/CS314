@@ -84,5 +84,30 @@ public class TestSendSQL {
         }
     }
 
+    @Test
+    @DisplayName("hca1197: Testing found method after a query with no results")
+    public void testFoundNoResults() {
+        sendSQL send = new sendSQL();
+        String sql = "SELECT * FROM world WHERE id = '%woosh%'";
+        try {
+            send.performQuery(sql);
+            assertEquals(0, send.found());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("hca1197: Testing found method after a query with results")
+    public void testFoundWithResults() {
+        sendSQL send = new sendSQL();
+        String sql = "SELECT * FROM world WHERE name LIKE '%detroit%'";
+        try {
+            send.performQuery(sql);
+            assertEquals(3, send.found());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+    }
 
 }
