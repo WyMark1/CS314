@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Arrays;
 
 public class TestGeographicLocations {
 
@@ -52,6 +53,7 @@ public class TestGeographicLocations {
         int limit = 0;
         assertEquals(0, geoloc.found());
     }
+
     @Test
     @DisplayName("josh1302: Testing base case for find")
     public void TestFind() {
@@ -174,12 +176,59 @@ public class TestGeographicLocations {
             distancesList.add(formulaType.between(place, places.get(1), earthRadius));
             distancesList.add(formulaType.between(place, places.get(2), earthRadius));
             Distances result = geoloc.distances(place, places, earthRadius, formula);
-            assertEquals(distancesList.get(0), result.get(0));
-            assertEquals(distancesList.get(1), result.get(1));
-            assertEquals(distancesList.get(2), result.get(2));
+            assertEquals(distancesList, result);
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
         }
     }
+
+    @Test
+    @DisplayName("mstencel: Testing sorting list to ensure distances over limit are removed and list is sorted")
+    public void TestRemoveExtraDistances() {
+        GeographicLocations geoloc = new GeographicLocations();
+        Distances distanceList = new Distances();
+        Distances correctDistances = new Distances();
+        Place location1 = new Place(1.0, 1.0);
+        Place location2 = new Place(2.0, 2.0);
+        Place location3 = new Place(3.0, 3.0);
+        Place place = new Place(0.0, 0.0);
+        Places places = new Places();
+        places.addAll(Arrays.asList(location1, location2, location3, place));
+        int distance = 4;
+        distanceList.addAll(Arrays.asList(1L, 2L, 3L, 4L));
+        correctDistances.addAll(Arrays.asList(1L, 2L, 3L));
+        geoloc.removeExtraDistances(distanceList, places, 4);
+        assertEquals(correctDistances, distanceList);
+    }
+
+    @Test
+    @DisplayName("mstencel: Testing near to ensure Places is sorted from least to greatest distance")
+    public void TestNearSort() {
+        try {
+            GeographicLocations geoloc = new GeographicLocations();
+            int distance1 = 2;
+            int distance2 = 5;
+            double earthRadius = 3959.0;
+            String formula = "vincenty";
+            int limit = 3;
+            Place location = new Place();
+            Places result1 = new Places();
+            Places result2 = new Places();
+            location.put("name", "Detroit Institute of Arts"); // Using Austin's testing with limit of 3, I knew that distance 5 allowed 3 places to be in bounds, whereas 2 places wouldn't be.
+            location.put("latitude", "42.36254");
+            location.put("longitude", "-83.06492");
+            int expectedSize1 = 2;
+            int expectedSize2 = 3;
+            result1 = geoloc.near(location, distance1, earthRadius, formula, limit); // Using Austin's tests,
+            result2 = geoloc.near(location, distance2, earthRadius, formula, limit);
+            Places expected = new Places();
+            assertEquals(expectedSize1, result1.size());
+            assertEquals(expectedSize2, result2.size());
+
+        } catch (Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+    }
+
 }
 

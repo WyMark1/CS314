@@ -14,6 +14,7 @@ public class GeographicLocations {
     }
 
     public Places near(Place place, int distance, double earthRadius, String formula, int limit) throws BadRequestException {
+        Distances distanceList = new Distances();
         String lat = place.get("latitude");
         String lon = place.get("longitude");
         double latDelta = (distance / earthRadius) * (180 / Math.PI);
@@ -24,14 +25,16 @@ public class GeographicLocations {
         String orderBy = " ORDER BY lat_diff + lon_diff LIMIT "+Integer.toString(limit) +";";
         String sql = select + from + where + orderBy;
         sendSQL s = new sendSQL();
+        distanceList = distances(place, s.places(sql), earthRadius, formula);
+        removeExtraDistances(distanceList, s.places(sql), distance);
         return s.places(sql);
     }
 
     public Distances distances(Place place, Places places, double earthRadius, String formula) {
         Distances distances = new Distances();
+        Places sortedPlaces = new Places();
         CalculatorFactory calcFac = new CalculatorFactory();
         GreatCircleDistance formulaType = calcFac.get(formula);
-
         for (Place p : places) {
             if (!place.equals(p)) {
                 distances.add(formulaType.between(place, p, earthRadius));
@@ -39,6 +42,22 @@ public class GeographicLocations {
         }
         
         return distances;
+    }
+
+    public void removeExtraDistances(Distances distances, Places places, long distance) {
+        Distances sortedDistances = new Distances();
+        Places sortedPlaces = new Places();
+        for (int i = 0; i < distances.size(); i++) {
+            if (distances.get(i) < distance) {
+                sortedDistances.add(distances.get(i));
+                sortedPlaces.add(places.get(i));
+            }
+        }
+        
+        places.clear();
+        distances.clear();
+        distances.addAll(sortedDistances);
+        places.addAll(sortedPlaces);
     }
 
     public Integer found() {
