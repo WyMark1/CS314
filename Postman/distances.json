@@ -53,7 +53,7 @@
 			"response": []
 		},
 		{
-			"name": "testDistanceRequest",
+			"name": "hca1197:testDistanceRequest",
 			"event": [
 				{
 					"listen": "test",

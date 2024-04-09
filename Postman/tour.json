@@ -54,7 +54,7 @@
 			"response": []
 		},
 		{
-			"name": "testTourRequest",
+			"name": "wymark:testTourRequest",
 			"event": [
 				{
 					"listen": "test",
