@@ -13,7 +13,7 @@ public class sendSQL {
     final static String USER = "cs314-db";
     final static String PASSWORD = "eiK5liet1uej";
     final static String URL = "jdbc:mariadb://faure.cs.colostate.edu/cs314";
-    private Integer resultCount;
+    private Integer resultCount = 0;
     
     public sendSQL() {}
     
@@ -51,7 +51,7 @@ public class sendSQL {
     }
 
     public Integer found() {
-        return resultCount != null ? resultCount : 0;
+        return resultCount;
     }
 
     private int getResult(ResultSet resultSet) throws BadRequestException {
