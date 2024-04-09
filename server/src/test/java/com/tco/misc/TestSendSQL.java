@@ -41,7 +41,6 @@ public class TestSendSQL {
         assertEquals(0, send.found());
     }
 
-
     @Test
     @DisplayName("mstencel: Testing performQuery SQL")
     public void testingPerformQuery() {
