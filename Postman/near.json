@@ -14,8 +14,8 @@
 					"script": {
 						"id": "ca3e4304-25a3-4fcc-9f19-ac299b4b811a",
 						"exec": [
-							"pm.test(\"Response is HTTP404 status\", () => {\r",
-							"    pm.response.to.have.status(404);\r",
+							"pm.test(\"Response is HTTP200 status\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							""
 						],
