@@ -8,7 +8,7 @@ public class cosines implements GreatCircleDistance {
     
     public Long between(GeographicCoordinate geoCord1, GeographicCoordinate geoCord2, double radius) {
 
-        if (radius <= 1.0) {
+        if (radius < 1.0) {
             throw new IllegalArgumentException("Radius must be greater than or equal to 1");
         }
 
