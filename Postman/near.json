@@ -54,7 +54,7 @@
 			"response": []
 		},
 		{
-			"name": "testNearRequest",
+			"name": "hca1197:testNearRequest",
 			"event": [
 				{
 					"listen": "test",
@@ -110,7 +110,7 @@
 			"response": []
 		},
 		{
-			"name": "testNearRequest2",
+			"name": "hca1197:testNearRequest2",
 			"event": [
 				{
 					"listen": "test",
