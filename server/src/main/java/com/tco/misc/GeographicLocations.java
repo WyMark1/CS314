@@ -63,7 +63,7 @@ public class GeographicLocations {
     }
 
     public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
-        String types ="world.type ";
+        String types ="world.type LIKE '%%' ";
         if(type.size()==1){
             types = "world.type LIKE " +"'%"+ type.get(0)+"%' ";
         }
@@ -76,7 +76,6 @@ public class GeographicLocations {
     }
         String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+ "LIMIT "+limit+";";
         sendSQL send = new sendSQL();
-        System.out.println(select + from + whereFind);
         return send.places(select + from + whereFind);
     }
 }
