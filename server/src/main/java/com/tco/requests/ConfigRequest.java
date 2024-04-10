@@ -23,6 +23,8 @@ public class ConfigRequest extends Request {
         features.add("distances");
         features.add("tour");
         features.add("near");
+        features.add("find");
+        features.add("type");
         formulae.add("vincenty");
         formulae.add("haversine");
         formulae.add("cosines");
