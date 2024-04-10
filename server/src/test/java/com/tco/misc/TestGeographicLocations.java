@@ -1,6 +1,7 @@
 package com.tco.misc;
 
 import com.tco.misc.*;
+import java.util.*;
 import com.tco.requests.Places;
 import com.tco.requests.Place;
 import com.tco.requests.Distances;
@@ -46,9 +47,9 @@ public class TestGeographicLocations {
     @DisplayName("josh1302: Testing base case for find")
     public void TestFind() {
         GeographicLocations geoloc = new GeographicLocations();
-        String where = "";
+        List<String> where = new ArrayList<String>();
         String match = "";
-        String type = "";
+        List<String> type = new ArrayList<String>();
         int limit = 0;
         Places result = new Places();
         try {
@@ -226,12 +227,15 @@ public class TestGeographicLocations {
     @DisplayName("wymark: Testing find with type only")
     public void TestFindWithType() {
         GeographicLocations geoloc = new GeographicLocations();
-        String where = "";
+        List<String> where = new ArrayList<String>();
         String match = "hello";
-        String type = "airport";
+        List<String> type = new ArrayList<String>();
+        type.add("airport");
+        type.add("heliport");
         int limit = 3;
         Places result = new Places();
         Place place1 = new Place();
+        Place place2 = new Place();
         place1.put("id", "KS70");
         place1.put("name", "Othello Municipal Airport");
         place1.put("municipality", "Othello");
@@ -241,6 +245,16 @@ public class TestGeographicLocations {
         place1.put("longitude", "-119.0790024");
         place1.put("altitude", "1139");
         place1.put("type", "small_airport");
+        place2.put("id", "24WA");
+        place2.put("name", "Othello Community Hospital Heliport");
+        place2.put("municipality", "Othello");
+        place2.put("region", "Washington");
+        place2.put("country", "United States");
+        place2.put("latitude", "46.82609939575195");
+        place2.put("longitude", "-119.16899871826172");
+        place2.put("altitude", "1038");
+        place2.put("type", "heliport");
+        result.add(place2);
         result.add(place1);
         try {
             assertEquals(result, geoloc.find(match,type,where,limit));
@@ -253,9 +267,10 @@ public class TestGeographicLocations {
     @DisplayName("wymark: Testing find with type only but with a match that has more than limit")
     public void TestFindWithTypeMoreThanLimit() {
         GeographicLocations geoloc = new GeographicLocations();
-        String where = "";
+        List<String> where = new ArrayList<String>();
         String match = "a";
-        String type = "balloonport";
+        List<String> type = new ArrayList<String>();
+        type.add("balloonport");
         int limit = 3;
         Places result = new Places();
         

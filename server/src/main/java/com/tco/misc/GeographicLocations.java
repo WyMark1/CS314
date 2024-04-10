@@ -6,6 +6,7 @@ import com.tco.requests.Distances;
 import com.tco.misc.sendSQL;
 import com.tco.misc.BadRequestException;
 import java.lang.Math;
+import java.util.*;
 
 public class GeographicLocations {
     private static String select = "SELECT world.id, world.name, world.municipality, region.name AS region, country.name AS country, world.latitude, world.longitude, world.altitude, world.type ";
@@ -61,9 +62,21 @@ public class GeographicLocations {
         places.addAll(sortedPlaces);
     }
 
-    public Places find(String match, String type, String where, int limit) throws BadRequestException {
-        String whereFind = "WHERE world.name LIKE '%"+match+"%' AND world.type LIKE '%"+type+"%' LIMIT "+limit+";";
+    public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
+        String types ="world.type ";
+        if(type.size()==1){
+            types = "world.type LIKE " +"'%"+ type.get(0)+"%' ";
+        }
+        else if(type.size()>1){
+            types = "(world.type LIKE " +"'%"+ type.get(0)+"%'";
+            for(int i = 1; i<type.size();i++){
+                types+=" OR world.type LIKE "+"'%"+type.get(i)+"%'";
+        }
+        types+=") ";
+    }
+        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+ "LIMIT "+limit+";";
         sendSQL send = new sendSQL();
+        System.out.println(select + from + whereFind);
         return send.places(select + from + whereFind);
     }
 }

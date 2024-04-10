@@ -10,7 +10,7 @@ public class TestFindRequest {
 
     @Test
     @DisplayName("hca1197: Initial base test for FindRequest.")
-    public void testBuildResponse() {
+    public void testBuildResponse() throws BadRequestException{
         String match = "testMatch";
         List<String> type = Arrays.asList("type1", "type2");
         List<String> where = Arrays.asList("where1", "where2");

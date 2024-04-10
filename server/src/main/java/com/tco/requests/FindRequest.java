@@ -22,8 +22,17 @@ public class FindRequest extends Request {
     }
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         this.requestType = "find";
+        this.match = match;
+        this.type = type;
+        this.where = where;
+        this.limit = limit;
+        GeographicLocations geoLoc = new GeographicLocations();
+        sendSQL send = new sendSQL();
+        this.places = geoLoc.find(match,type,where,limit);
+        this.found = send.found();
+        log.trace("buildResponse -> {}", this);
     }
 
 }
