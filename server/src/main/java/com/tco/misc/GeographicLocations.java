@@ -92,7 +92,7 @@ public class GeographicLocations {
             countries+=") ";
             }
         }
-        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+" AND "+countries+"LIMIT "+limit+";";
+        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+"  "+countries+"LIMIT "+limit+";";
         sendSQL send = new sendSQL();
         Places place = send.places(select + from + whereFind);
         found = send.found();
