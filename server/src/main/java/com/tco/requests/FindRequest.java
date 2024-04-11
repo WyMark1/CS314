@@ -42,12 +42,12 @@ public class FindRequest extends Request {
     public void buildResponse() throws BadRequestException {
         this.requestType = "find";
         this.match = match;
-        this.type = type;
-        this.where = where;
+        if(type!= null){this.type = type;}
+        if(where!=null){this.where = where;}
         this.limit = limit;
         GeographicLocations geoLoc = new GeographicLocations();
         this.places = geoLoc.find(match,type,where,limit);
-        this.found = places.size();
+        this.found = geoLoc.getFound();
         log.trace("buildResponse -> {}", this);
     }
 

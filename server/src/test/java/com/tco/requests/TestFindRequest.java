@@ -31,10 +31,11 @@ public class TestFindRequest {
         assertEquals(limit, findRequest.getLimit());
     }
     @Test
-    @DisplayName("josh1302: Test no type is being passed in.")
-    public void testNoType() throws BadRequestException{
+    @DisplayName("josh1302: Test null type is being passed in.")
+    public void testNullType() throws BadRequestException{
+        boolean thrown = false;
         String match = "a";
-        List<String> type = new ArrayList<String>();
+        List<String> type = null;
         List<String> where = Arrays.asList("where1", "where2");
         Integer limit = 3;
         FindRequest findRequest = new FindRequest(match, type, where, limit);
@@ -42,9 +43,9 @@ public class TestFindRequest {
             findRequest.buildResponse();
         }
         catch (Exception e) {
-                fail("Exception occurred: " + e.getMessage());
+                thrown = true;
         }
-        assertEquals(findRequest.getFound(), 3);
+        assertEquals(thrown, true);
     }
     @Test
     @DisplayName("josh1302: Test specified limit is being passed in.")
@@ -63,10 +64,10 @@ public class TestFindRequest {
         assertEquals(findRequest.getFound(), 3);
     }
     @Test
-    @DisplayName("josh1302: Test no match.")
-    public void testNoMatch() throws BadRequestException{
-        String match = "";
-        List<String> type = Arrays.asList("airport", "heliport");
+    @DisplayName("josh1302: Test no type.")
+    public void testNotype() throws BadRequestException{
+        String match = "a";
+        List<String> type = Arrays.asList();
         List<String> where = Arrays.asList("where1", "where2");
         Integer limit = 3;
         FindRequest findRequest = new FindRequest(match, type, where, limit);
