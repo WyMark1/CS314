@@ -6,6 +6,7 @@ import com.tco.requests.Places;
 import com.tco.requests.Place;
 import com.tco.requests.Distances;
 import com.tco.requests.DistanceRequest;
+import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,8 +40,12 @@ public class TestGeographicLocations {
         double earthRadius = 0.0;
         String formula = null;
         GeographicLocations locations = new GeographicLocations();
+        try {
         Distances distances = locations.distances(place, places, earthRadius, formula);
         assertNotNull(distances);
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
     @Test

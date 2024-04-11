@@ -1,10 +1,11 @@
 package com.tco.misc;
+import com.tco.misc.BadRequestException;
 
 public class CalculatorFactory {
 
     public CalculatorFactory() {}
 
-    public static GreatCircleDistance get(String formula) throws IllegalArgumentException {
+    public static GreatCircleDistance get(String formula) throws BadRequestException {
         
         if (formula != null) {
             String lower = formula.toLowerCase();
@@ -16,7 +17,8 @@ public class CalculatorFactory {
             } else if (lower.equals("cosines")) {
                 return new cosines();
             } else {
-                throw new IllegalArgumentException("Unsupported formula: " + formula);
+                BadRequestException BRE = new BadRequestException("Unsupported formula: " + formula);
+                throw BRE;
             }
         } 
         else {

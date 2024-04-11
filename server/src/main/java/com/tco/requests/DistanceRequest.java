@@ -7,6 +7,7 @@ import com.tco.misc.*;
 import com.tco.requests.Place;
 import com.tco.requests.Places;
 import com.tco.requests.Distances;
+import com.tco.misc.BadRequestException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class DistanceRequest extends Request {
         }
     }
 
-    private void addDistance(String formula) {
+    private void addDistance(String formula) throws BadRequestException {
         CalculatorFactory calcFac = new CalculatorFactory();
         GreatCircleDistance formulaType = calcFac.get(formula);
         
@@ -42,7 +43,7 @@ public class DistanceRequest extends Request {
         distances.add(formulaType.between(places.get(places.size()-1), places.get(0), earthRadius));
     }
 
-    private void buildDistanceList(String formula) {
+    private void buildDistanceList(String formula) throws BadRequestException {
         if (places.size() >= 2) {
             addDistance(formula);
         }
@@ -56,7 +57,7 @@ public class DistanceRequest extends Request {
     }
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         this.requestType = "distances";
         this.distances = new Distances();
         this.earthRadius = earthRadius;

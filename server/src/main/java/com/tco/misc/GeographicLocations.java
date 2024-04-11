@@ -16,6 +16,7 @@ public class GeographicLocations {
     public GeographicLocations() {
 
     }
+    
     public Integer getFound(){
         return found;
     }
@@ -36,7 +37,7 @@ public class GeographicLocations {
         return s.places(sql);
     }
 
-    public Distances distances(Place place, Places places, double earthRadius, String formula) {
+    public Distances distances(Place place, Places places, double earthRadius, String formula) throws BadRequestException {
         Distances distances = new Distances();
         Places sortedPlaces = new Places();
         CalculatorFactory calcFac = new CalculatorFactory();

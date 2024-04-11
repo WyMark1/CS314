@@ -45,7 +45,7 @@ public class TourRequest extends Request {
      * and current response value. Logs the outcome of the optimization process.
      */
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         this.requestType = "tour";
         this.response = response;
         if (formula != null){

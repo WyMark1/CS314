@@ -6,11 +6,12 @@ import com.tco.requests.Places;
 import com.tco.requests.Distances;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-
+import com.tco.misc.BadRequestException;
 import java.lang.Math;
 import java.util.Collections; 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestDistanceRequest {
 
@@ -22,8 +23,12 @@ public class TestDistanceRequest {
         Long result = 0L;
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
-        disRequest.buildResponse();
-        assertEquals(result, (disRequest.getDistanceList()).size());
+        try {
+            disRequest.buildResponse();
+            assertEquals(result, (disRequest.getDistanceList()).size());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
     
     @Test 
@@ -36,10 +41,13 @@ public class TestDistanceRequest {
         Long result = 0L;
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
+        try {
         disRequest.buildResponse();
         assertEquals(1, (disRequest.getDistanceList()).size());
         assertEquals(result, (disRequest.getDistanceList()).get(0));
-
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
     @Test 
@@ -54,8 +62,12 @@ public class TestDistanceRequest {
         int result = 2;
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
+        try {
         disRequest.buildResponse();
         assertEquals(result, disRequest.getDistanceList().size());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
     @Test 
@@ -72,8 +84,12 @@ public class TestDistanceRequest {
         int result = 3; 
         String formula = "vincenty";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
+        try {
         disRequest.buildResponse();
         assertEquals(result, disRequest.getDistanceList().size());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
     @Test 
@@ -91,9 +107,13 @@ public class TestDistanceRequest {
         Long result2 = 1107137L; 
         String formula = "haversine";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
+        try {
         disRequest.buildResponse();
         assertEquals(result1, disRequest.getDistanceList().get(0)); // place 1 - place 2
         assertEquals(result2, disRequest.getDistanceList().get(1)); // place 2 - place 3
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
     @Test
@@ -112,7 +132,11 @@ public class TestDistanceRequest {
         Collections.addAll(places, placesArr);
         String formula = "cosines";
         DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
+        try {
         disRequest.buildResponse();
         assertEquals(distances, disRequest.getDistanceList());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 }
