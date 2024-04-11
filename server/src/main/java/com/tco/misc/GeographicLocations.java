@@ -68,6 +68,7 @@ public class GeographicLocations {
 
     public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
         String types = "";
+        String countries = "";
         if (type != null) {
             types ="world.type LIKE '%%' ";
             if(type.size()==1){
@@ -80,7 +81,19 @@ public class GeographicLocations {
             types+=") ";
             }
         }
-        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+ "LIMIT "+limit+";";
+        if (where != null) {
+            countries ="country.name LIKE '%%' ";
+            if(where.size()==1){
+            countries = "country.name LIKE " +"'%"+ where.get(0)+"%' ";
+            } else if(where.size()>1){
+                countries = "(country.name LIKE " +"'%"+ where.get(0)+"%'";
+                for(int i = 1; i<where.size();i++){
+                    countries+=" OR country.name LIKE "+"'%"+where.get(i)+"%'";
+                }
+            countries+=") ";
+            }
+        }
+        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+" AND "+countries+"LIMIT "+limit+";";
         sendSQL send = new sendSQL();
         Places place = send.places(select + from + whereFind);
         found = send.found();
