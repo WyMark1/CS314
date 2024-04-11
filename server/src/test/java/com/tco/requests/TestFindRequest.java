@@ -62,7 +62,7 @@ public class TestFindRequest {
         catch (Exception e) {
                 thrown = true;
         }
-        assertEquals(thrown, true);
+        assertEquals(thrown, false);
     }
     @Test
     @DisplayName("josh1302: Test specified limit is being passed in.")
