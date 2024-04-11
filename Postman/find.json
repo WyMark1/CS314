@@ -128,7 +128,7 @@
 							"var responseBody = pm.response.json();",
 							"",
 							"var expectedPlaceIds = [\"W10\",\"01WN\",\"KNUW\"];",
-							"var expectedFound = [\"3\"];",
+							"var expectedFound = 3;",
 							"",
 							"expectedPlaceIds.forEach(function(expectedId) {",
 							"    pm.test(\"Place with ID '\" + expectedId + \"' exists\", function () {",
@@ -137,8 +137,7 @@
 							"});",
 							"",
 							"pm.test(\"Found match expected value\", function () {",
-							"    let resp = pm.response.json();",
-							"    pm.expect(resp.found).to.be.a(\"number\");",
+							"    pm.expect(responseBody.found).to.be.a(\"number\");",
 							"    pm.expect(responseBody.found).to.eql(expectedFound);",
 							"});",
 							""
