@@ -116,6 +116,18 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "mstencel:findTest2",
+			"id": "30ff578a-67fa-4562-8f68-8b9614814dc5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
