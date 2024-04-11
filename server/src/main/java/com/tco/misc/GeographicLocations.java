@@ -85,7 +85,7 @@ public class GeographicLocations {
             if(where.size()==1){
             countries = " AND country.name LIKE " +"'%"+ where.get(0)+"%' ";
             } else if(where.size()>1){
-                countries = "(country.name LIKE " +"'%"+ where.get(0)+"%'";
+                countries = " AND (country.name LIKE " +"'%"+ where.get(0)+"%'";
                 for(int i = 1; i<where.size();i++){
                     countries+=" OR country.name LIKE "+"'%"+where.get(i)+"%'";
                 }
