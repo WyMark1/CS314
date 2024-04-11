@@ -51,6 +51,71 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "brownbp;FindTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69de2357-5784-4af8-9bf8-ecf147a771ab",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has expected structure\", function () {",
+							"    let resp = pm.response.json();",
+							"    pm.expect(resp).to.have.property(\"found\");",
+							"    pm.expect(resp.places).to.be.an(\"array\");",
+							"    if (resp.places.length > 0) {",
+							"        pm.expect(resp.places[0]).to.have.all.keys(\"id\", \"name\", \"municipality\", \"region\", \"country\", \"latitude\", \"longitude\", \"altitude\", \"type\");",
+							"    }",
+							"});",
+							"",
+							"",
+							"pm.test(\"Found matches expected count\", function () {",
+							"    let resp = pm.response.json();",
+							"    pm.expect(resp.found).to.be.a(\"number\");",
+							"    // check if the found number matches the number of places returned",
+							"    pm.expect(resp.found).to.eql(resp.places.length);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "349002a0-20e4-47cc-a433-da459e0ee1a2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
