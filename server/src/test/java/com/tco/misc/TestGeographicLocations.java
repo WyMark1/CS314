@@ -47,9 +47,9 @@ public class TestGeographicLocations {
     @DisplayName("josh1302: Testing base case for find")
     public void TestFind() {
         GeographicLocations geoloc = new GeographicLocations();
-        List<String> where = new ArrayList<String>();
+        List<String> where = null;
         String match = "";
-        List<String> type = new ArrayList<String>();
+        List<String> type = null;
         int limit = 0;
         Places result = new Places();
         try {

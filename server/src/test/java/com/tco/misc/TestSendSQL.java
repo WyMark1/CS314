@@ -6,6 +6,7 @@ import com.tco.requests.Place;
 import com.tco.requests.Places;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -108,6 +109,20 @@ public class TestSendSQL {
         } catch (BadRequestException e) {
             fail("Exception occurred: " + e.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("wymark: checking coutries is right size")
+    public void testGetPlacesForWhere() {
+        sendSQL send = new sendSQL();
+        List<String> countries;
+        try {
+            countries = send.getPlacesForWhere();
+            assertEquals(243, countries.size());
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+
     }
 
 }
