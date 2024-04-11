@@ -70,11 +70,10 @@ public class GeographicLocations {
         String types = "";
         String countries = "";
         if (type != null) {
-            types ="world.type LIKE '%%' ";
             if(type.size()==1){
-            types = "world.type LIKE " +"'%"+ type.get(0)+"%' ";
+            types = " AND world.type LIKE " +"'%"+ type.get(0)+"%' ";
             } else if(type.size()>1){
-                types = "(world.type LIKE " +"'%"+ type.get(0)+"%'";
+                types = " AND (world.type LIKE " +"'%"+ type.get(0)+"%'";
                 for(int i = 1; i<type.size();i++){
                     types+=" OR world.type LIKE "+"'%"+type.get(i)+"%'";
                 }
@@ -92,7 +91,7 @@ public class GeographicLocations {
             countries+=") ";
             }
         }
-        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+"  "+countries+"LIMIT "+limit+";";
+        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+types+"  "+countries+"LIMIT "+limit+";";
         sendSQL send = new sendSQL();
         Places place = send.places(select + from + whereFind);
         found = send.found();
