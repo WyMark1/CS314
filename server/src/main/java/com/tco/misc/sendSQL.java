@@ -7,6 +7,7 @@ import java.sql.Statement;
 import com.tco.requests.*;
 import com.tco.misc.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 public class sendSQL {
@@ -30,6 +31,25 @@ public class sendSQL {
         }
     }
     
+    public List<String> getPlacesForWhere() throws BadRequestException {
+        try {
+            String select = "SELECT DISTINCT country.name AS country ";
+            String from = "FROM continent INNER JOIN country ON continent.id = country.continent INNER JOIN region ON country.id = region.iso_country INNER JOIN world ON region.id = world.iso_region";
+
+            ResultSet results = performQuery(select+from); 
+            List<String> contries = new ArrayList<String>();
+    
+            while (results.next()) {
+                contries.add(results.getString("country"));
+            }
+
+            return contries;
+        } catch (Exception e) {
+            BadRequestException BRE = new BadRequestException("Places: " + e.getMessage(), e);
+            throw BRE;
+        }
+    }
+
     public Places places(String sql) throws BadRequestException {
         try {
             ResultSet results = performQuery(sql);
