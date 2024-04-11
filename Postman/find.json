@@ -137,6 +137,8 @@
 							"});",
 							"",
 							"pm.test(\"Found match expected value\", function () {",
+							"    let resp = pm.response.json();",
+							"    pm.expect(resp.found).to.be.a(\"number\");",
 							"    pm.expect(responseBody.found).to.eql(expectedFound);",
 							"});",
 							""
