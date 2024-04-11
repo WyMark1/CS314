@@ -6,13 +6,18 @@ import com.tco.requests.Distances;
 import com.tco.misc.sendSQL;
 import com.tco.misc.BadRequestException;
 import java.lang.Math;
+import java.util.*;
 
 public class GeographicLocations {
     private static String select = "SELECT world.id, world.name, world.municipality, region.name AS region, country.name AS country, world.latitude, world.longitude, world.altitude, world.type ";
     private static String from = "FROM continent INNER JOIN country ON continent.id = country.continent INNER JOIN region ON country.id = region.iso_country INNER JOIN world ON region.id = world.iso_region ";
+    private Integer found;
 
     public GeographicLocations() {
 
+    }
+    public Integer getFound(){
+        return found;
     }
 
     public Places near(Place place, int distance, double earthRadius, String formula, int limit) throws BadRequestException {
@@ -61,9 +66,24 @@ public class GeographicLocations {
         places.addAll(sortedPlaces);
     }
 
-    public Places find(String match, String type, String where, int limit) throws BadRequestException {
-        String whereFind = "WHERE world.name LIKE '%"+match+"%' AND world.type LIKE '%"+type+"%' LIMIT "+limit+";";
+    public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
+        String types = "";
+        if (type != null) {
+            types ="world.type LIKE '%%' ";
+            if(type.size()==1){
+            types = "world.type LIKE " +"'%"+ type.get(0)+"%' ";
+            } else if(type.size()>1){
+                types = "(world.type LIKE " +"'%"+ type.get(0)+"%'";
+                for(int i = 1; i<type.size();i++){
+                    types+=" OR world.type LIKE "+"'%"+type.get(i)+"%'";
+                }
+            types+=") ";
+            }
+        }
+        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+" AND "+types+ "LIMIT "+limit+";";
         sendSQL send = new sendSQL();
-        return send.places(select + from + whereFind);
+        Places place = send.places(select + from + whereFind);
+        found = send.found();
+        return place;
     }
 }

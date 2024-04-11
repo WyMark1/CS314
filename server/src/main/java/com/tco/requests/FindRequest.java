@@ -20,10 +20,35 @@ public class FindRequest extends Request {
         this.where = where;
         this.limit = limit;
     }
+    
+    public String getMatch() {
+        return match;
+    }
 
+    public List getType() {
+        return type;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+    public List getWhere() {
+        return where;
+    }
+    public Integer getFound() {
+        return found;
+    }
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         this.requestType = "find";
+        this.match = match;
+        if(type!= null){this.type = type;}
+        if(where!=null){this.where = where;}
+        this.limit = limit;
+        GeographicLocations geoLoc = new GeographicLocations();
+        this.places = geoLoc.find(match,type,where,limit);
+        this.found = geoLoc.getFound();
+        log.trace("buildResponse -> {}", this);
     }
 
 }
