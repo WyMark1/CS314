@@ -82,7 +82,6 @@ public class GeographicLocations {
             }
         }
         if (where != null) {
-            countries ="country.name LIKE '%%' ";
             if(where.size()==1){
             countries = "country.name LIKE " +"'%"+ where.get(0)+"%' ";
             } else if(where.size()>1){
