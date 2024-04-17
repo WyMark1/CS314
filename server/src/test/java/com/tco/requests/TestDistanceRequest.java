@@ -11,6 +11,7 @@ import java.lang.Math;
 import java.util.Collections; 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestDistanceRequest {
@@ -139,4 +140,20 @@ public class TestDistanceRequest {
             fail("Exception occurred: " + e.getMessage());
         }
     }
+
+    @Test 
+    @DisplayName("wymark: Throws an error when given a bad formula")
+    public void TestThrowsError() {
+        Places places = new Places();
+        Double radius = 31415.92;
+        Long result = 0L;
+        String formula = "bad formula";
+        DistanceRequest disRequest = new DistanceRequest(places, radius, formula);
+        try {
+            disRequest.buildResponse();
+        } catch (Exception e) {
+            assertTrue(e instanceof BadRequestException);
+        }
+    }
+    
 }

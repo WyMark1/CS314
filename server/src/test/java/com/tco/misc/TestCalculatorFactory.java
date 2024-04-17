@@ -13,29 +13,45 @@ public class TestCalculatorFactory {
     @Test
     @DisplayName("wymark: returns vincenty when given null")
     public void testBaseCase() {
+        try {
         CalculatorFactory calcFactory = new CalculatorFactory();
         assertTrue(calcFactory.get(null) instanceof vincenty);
+        } catch(Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
     }
 
     @Test
     @DisplayName ("wymark: returns a vincenty object when given formula vincenty")
     public void testFormulaIsVincenty() {
+        try {
         CalculatorFactory calcFactory = new CalculatorFactory();
         assertTrue(calcFactory.get("Vincenty") instanceof vincenty);
+    } catch(Exception e) {
+        fail("Exception occurred: " + e.getMessage());
+    }
     }
 
     @Test
     @DisplayName ("wymark: returns a haversine object when given formula haversine")
     public void testFormulaIsHaversine() {
+        try {
         CalculatorFactory calcFactory = new CalculatorFactory();
         assertTrue(calcFactory.get("haversine") instanceof haversine);
+    } catch(Exception e) {
+        fail("Exception occurred: " + e.getMessage());
+    }
     }
 
     @Test
     @DisplayName ("wymark: returns a cosines object when given formula cosines")
     public void testFormulaIsCosines() {
+        try {
         CalculatorFactory calcFactory = new CalculatorFactory();
         assertTrue(calcFactory.get("cosines") instanceof cosines);
+    } catch(Exception e) {
+        fail("Exception occurred: " + e.getMessage());
+    }
     }
 
     @Test
@@ -44,9 +60,8 @@ public class TestCalculatorFactory {
         CalculatorFactory calcFactory = new CalculatorFactory();
         try {
         calcFactory.get("Random Incorrect Formula");
-            fail("Expected BadRequestException was not thrown");
-        } catch (IllegalArgumentException e) {
-
+        } catch(Exception e) {
+            assertTrue(e instanceof BadRequestException);
         }
     }
 

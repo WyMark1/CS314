@@ -44,6 +44,8 @@ public class DistanceRequest extends Request {
     }
 
     private void buildDistanceList(String formula) throws BadRequestException {
+        CalculatorFactory calcFac = new CalculatorFactory();
+        calcFac.get(formula);
         if (places.size() >= 2) {
             addDistance(formula);
         }
@@ -62,9 +64,13 @@ public class DistanceRequest extends Request {
         this.distances = new Distances();
         this.earthRadius = earthRadius;
         if (formula != null) {
+            /*if (formula.equals("invalid")) {
+                BadRequestException BRE = new BadRequestException("Invalid formula");
+                throw BRE;
+            }*/
             this.formula = formula;
         }
-        
+    
         this.places = places;
         buildDistanceList(formula);
         log.trace("buildResponse -> {}", this);

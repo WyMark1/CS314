@@ -5,6 +5,7 @@ import com.tco.requests.Place;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Arrays;
 
 public class TestTourOptimizer {
@@ -18,7 +19,11 @@ public class TestTourOptimizer {
         Double radius = 1.0;
         String formula = "vincenty";
         Double response = 0.1;
+        try {
         assertEquals(result, optimizer.construct(places, radius, formula, response));
+    } catch(Exception e) {
+        fail("Exception occurred: " + e.getMessage());
+    }
     }
 
     @Test
@@ -36,7 +41,11 @@ public class TestTourOptimizer {
         Double radius = 1.0;
         String formula = "vincenty";
         Double response = 0.1;
+        try {
         assertEquals(result, optimizer.construct(places, radius, formula, response));
+    } catch(Exception e) {
+        fail("Exception occurred: " + e.getMessage());
+    }
     }
 
     @Test
@@ -60,6 +69,10 @@ public class TestTourOptimizer {
         Double radius = 3958.8;
         String formula = "vincenty";
         Double response = 0.1;
+        try {
         assertEquals(result, optimizer.construct(places, radius, formula, response));
+    } catch(Exception e) {
+        fail("Exception occurred: " + e.getMessage());
+    }
     }
 }
