@@ -175,6 +175,72 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "mstencel:FindTest3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8c44b93-2718-4696-b4ca-274007f6a401",
+						"exec": [
+							"var responseBody = pm.response.json();",
+							"",
+							"var expectedPlaceIds = [\"K3V5\",\"KFNL\"];",
+							"var expectedRegion = \"Colorado\";",
+							"var expectedFound = 2;",
+							"",
+							"expectedPlaceIds.forEach(function(expectedId) {",
+							"    pm.test(\"Place with ID '\" + expectedId + \"' exists\", function () {",
+							"        pm.expect(responseBody.places.some(place => place.id === expectedId)).to.be.true;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Found match expected value\", function () {",
+							"    pm.expect(responseBody.found).to.be.a(\"number\");",
+							"    pm.expect(responseBody.found).to.eql(expectedFound);",
+							"});",
+							"",
+							"pm.test(\"Region match expected value\", function () {",
+							"    pm.expect(responseBody.places[0].region).to.eql(expectedRegion);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "2e4391b9-103a-40f9-9039-92f11039e992",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"fort collins\",\n    \"limit\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
