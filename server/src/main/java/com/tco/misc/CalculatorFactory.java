@@ -1,7 +1,5 @@
 package com.tco.misc;
 import com.tco.misc.BadRequestException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,7 @@ public class CalculatorFactory {
 
     public CalculatorFactory() {}
 
-    public static GreatCircleDistance get(String formula) throws IllegalArgumentException {
+    public static GreatCircleDistance get(String formula) throws BadRequestException {
         if (formula == null) {
             return new vincenty();
         }

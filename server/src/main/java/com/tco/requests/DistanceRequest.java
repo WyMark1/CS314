@@ -64,10 +64,6 @@ public class DistanceRequest extends Request {
         this.distances = new Distances();
         this.earthRadius = earthRadius;
         if (formula != null) {
-            /*if (formula.equals("invalid")) {
-                BadRequestException BRE = new BadRequestException("Invalid formula");
-                throw BRE;
-            }*/
             this.formula = formula;
         }
     
