@@ -13,6 +13,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestTourRequest {
 
@@ -24,8 +25,13 @@ public class TestTourRequest {
         String formula = "vincenty";
         double response = 1.0;
         TourRequest tourRequest = new TourRequest(places, earthRadius, formula, response);
+        try{
         tourRequest.buildResponse();
         assertEquals("tour", tourRequest.getRequestType());
+        } catch(Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+
     }
 
     @Test
@@ -43,8 +49,12 @@ public class TestTourRequest {
         Collections.addAll(places, placesArr);
         List<Place> expectedPlaces = Arrays.asList(placesArr);
         TourRequest tourRequest = new TourRequest(places, radius, formula, response);
+        try {
         tourRequest.buildResponse();
         assertEquals(expectedPlaces, tourRequest.getPlaces()); // with respone 0, TourRequest should just return the same array.
+        } catch(Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
 
     }
 
@@ -62,8 +72,12 @@ public class TestTourRequest {
         Collections.addAll(places, placesArr);
         List<Place> expectedPlaces = Arrays.asList(placesArr);
         TourRequest tourRequest = new TourRequest(places, radius, formula, response);
+        try {
         tourRequest.buildResponse();
         assertEquals(expectedPlaces, tourRequest.getPlaces()); // with array size less than 4, TourRequest should just return the same array.
+        } catch(Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
 
     }
 
@@ -88,8 +102,12 @@ public class TestTourRequest {
         expectedPlaces.add(place4);
         expectedPlaces.add(place2);
         TourRequest tourRequest = new TourRequest(places, radius, formula, response);
+        try {
         tourRequest.buildResponse();
         assertEquals(expectedPlaces, tourRequest.getPlaces());
+        } catch(Exception e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
 
     }
 }

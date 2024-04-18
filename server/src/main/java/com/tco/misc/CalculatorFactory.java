@@ -1,4 +1,5 @@
 package com.tco.misc;
+import com.tco.misc.BadRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +17,7 @@ public class CalculatorFactory {
 
     public CalculatorFactory() {}
 
-    public static GreatCircleDistance get(String formula) throws IllegalArgumentException {
+    public static GreatCircleDistance get(String formula) throws BadRequestException {
         if (formula == null) {
             return new vincenty();
         }
@@ -27,7 +28,8 @@ public class CalculatorFactory {
         if (supplier != null) {
             return supplier.get();
         } else {
-            throw new IllegalArgumentException("Unsupported formula: " + formula);
+            BadRequestException BRE = new BadRequestException("Unsupported formula: " + formula);
+            throw BRE;
         }
     }
 }

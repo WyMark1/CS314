@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 import java.util.Collections;
 
 public abstract class TourOptimizer {
-    public Places construct(Places places, Double radius, String formula, Double response) {
+    public Places construct(Places places, Double radius, String formula, Double response) throws BadRequestException {
         if (radius < 1.0 || response < 0.0) { 
             throw new IllegalArgumentException("Radius must be at least 1 and response must be positive.");
         }
