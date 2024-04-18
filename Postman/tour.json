@@ -63,7 +63,7 @@
 						"exec": [
 							"var responseBody = pm.response.json();\r",
 							"var places = responseBody.places;\r",
-							"var expectedPlaces = [\"Cairo\", \"Budapest\", \"Domagnano\", \"Munlochy\", \"Florida\", \"L'Hospitalet de Llobregat\", \"Ban Dongkhamxang\", \"Seychelles\"];\r",
+							"var expectedPlaces = [\"Cairo\", \"Seychelles\", \"Ban Dongkhamxang\", \"Florida\", \"L'Hospitalet de Llobregat\", \"Domagnano\", \"Budapest\", \"Munlochy\"];\r",
 							"pm.test(\"First place is the same\", function () {\r",
 							"    pm.expect(places[0].name).to.eql(\"Cairo\");\r",
 							"});\r",

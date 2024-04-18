@@ -107,6 +107,109 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "wymark:incorrectFormulaThrowsError",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1670b1fb-73c4-403a-bc1b-deb7bcc0dd95",
+						"exec": [
+							"pm.test(\"Response is HTTP400 status\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c5e86abe-db05-40b4-a0b8-99e3e8822a53",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [],\r\n    \"earthRadius\": 1,\r\n    \"formula\": \"elipsoid\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "wymark:smallDegree",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46dc5294-258f-48f0-9212-b72669bb66e4",
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"var distances = responseBody.distances;\r",
+							"var expectedDistances = [18,13,18,13];\r",
+							"\r",
+							"pm.test(\"Number of distances matches\", function () {\r",
+							"    pm.expect(distances.length).to.eql(expectedDistances.length);\r",
+							"});\r",
+							"\r",
+							"for (var i = 0; i < expectedDistances.length; i++) {\r",
+							"    pm.test(\"Distance \" + i + \" matches\", function () {\r",
+							"        pm.expect(distances[i]).to.eql(expectedDistances[i]);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "8cb2bb77-91da-48b8-9dbe-476396c8b466",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\"    : \"distances\",\r\n    \"places\"          : [{\"name\": \"Unkown\", \"latitude\": \"-0.1\", \"longitude\": \"-0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"0.1\", \"longitude\": \"0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"0.1\", \"longitude\": \"-0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"-0.1\", \"longitude\": \"0.1\"}],\r\n    \"earthRadius\"    : 3690,\r\n    \"formula\"         : \"vincenty\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
