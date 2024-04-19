@@ -18,6 +18,7 @@ public abstract class TourOptimizer {
         }
 
         if (places.size() < 4 || response == 0.0) return places;
+        if (places.size() >= 1300) return places;
         long[][] distances = getDistances(places, calculator, radius);
         places = applyNearestNeighborOptimization(places, distances, response); 
         return places;
