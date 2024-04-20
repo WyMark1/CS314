@@ -107,6 +107,295 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "hca1197:tourZeroPlaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9fd4205c-c539-4c5e-963e-44e554c38852",
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"pm.test(\"Places array is empty\", function () {\r",
+							"    pm.expect(responseBody.places).to.be.an('array').that.is.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request type is correct\", function () {\r",
+							"    pm.expect(responseBody.requestType).to.equal(\"tour\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Earth radius is correct\", function () {\r",
+							"    pm.expect(responseBody.earthRadius).to.equal(3959.0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response value is correct\", function () {\r",
+							"    pm.expect(responseBody.response).to.equal(0.5);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "61d1103f-147f-4570-b415-22a423eb6058",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"tour\",\r\n  \"earthRadius\": 3959.0,\r\n  \"response\": 0.5,\r\n  \"places\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hca1197:tourThreePlaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ad21558-14af-4432-9aee-daec55e67f3a",
+						"exec": [
+							"var originalPlaces = [\r",
+							"    {\"name\":\"S45.5 W131.7\", \"latitude\":\"-45.5\", \"longitude\":\"-131.7\"},\r",
+							"    {\"name\":\"S44.5 W47.0\", \"latitude\":\"-44.5\", \"longitude\":\"-47.0\"},\r",
+							"    {\"name\":\"S42.3 E44.8\", \"latitude\":\"-42.3\", \"longitude\":\"44.8\"}\r",
+							"];\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Request type is correct\", function () {\r",
+							"    pm.expect(responseBody.requestType).to.equal(\"tour\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Earth radius is correct\", function () {\r",
+							"    pm.expect(responseBody.earthRadius).to.equal(3959.0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response value is correct\", function () {\r",
+							"    pm.expect(responseBody.response).to.equal(0.5);\r",
+							"});\r",
+							"\r",
+							"// Check if the places array matches the original one sent\r",
+							"pm.test(\"Places array matches original\", function () {\r",
+							"    pm.expect(responseBody.places).to.eql(originalPlaces);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "6878064a-2ced-4e88-ab68-f5504e07d8d3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"tour\",\r\n  \"earthRadius\": 3959.0,\r\n  \"response\": 0.5,\r\n  \"places\":[\r\n    {\"name\":\"S45.5 W131.7\", \"latitude\":\"-45.5\", \"longitude\":\"-131.7\"},\r\n    {\"name\":\"S44.5 W47.0\", \"latitude\":\"-44.5\", \"longitude\":\"-47.0\"},\r\n    {\"name\":\"S42.3 E44.8\", \"latitude\":\"-42.3\", \"longitude\":\"44.8\"}\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hca1197:tourTenPlaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28584c92-8361-42ac-b4fe-10807afa5bbb",
+						"exec": [
+							"var originalPlaceNames = [\"place1\", \"place5\", \"place3\", \"place8\", \"place2\", \"place7\", \"place4\", \"place10\", \"place9\", \"place6\"];\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Request type is correct\", function () {\r",
+							"    pm.expect(responseBody.requestType).to.equal(\"tour\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Earth radius is correct\", function () {\r",
+							"    pm.expect(responseBody.earthRadius).to.equal(4000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response value is correct\", function () {\r",
+							"    pm.expect(responseBody.response).to.equal(0.5);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Places array has correct order of names\", function () {\r",
+							"    var responsePlaceNames = responseBody.places.map(function(place) {\r",
+							"        return place.name;\r",
+							"    });\r",
+							"    pm.expect(responsePlaceNames).to.eql(originalPlaceNames);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1 second\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000); \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "4d8c3ca1-f39a-4374-894e-c4319e5a5ce5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"tour\",\r\n    \"earthRadius\": 4000,\r\n    \"response\": 0.5,\r\n    \"places\": [\r\n        {\r\n            \"name\": \"place1\",        \r\n            \"streetAddress\":\"40 Eagle Nest Circle\",\r\n            \"latitude\":\"41.704509433780224\",\r\n            \"longitude\":\"-111.79687500000001\",\r\n            \"municipality\":\"Providence\",\r\n            \"region\":\"Utah\",\r\n            \"country\":\"United States\",\r\n            \"postcode\":\"84332\",\r\n            \"defaultDisplayName\":\"40 Eagle Nest Circle\"\r\n        },\r\n        {\r\n            \"name\": \"place2\",\r\n            \"streetAddress\":\"6262 Peakview Road\",\r\n            \"latitude\":\"34.08320111719889\",\r\n            \"longitude\":\"-105.82031250000001\",\r\n            \"municipality\":\"Lincoln County\",\r\n            \"region\":\"New Mexico\",\r\n            \"country\":\"United States\",\r\n            \"defaultDisplayName\":\"6262 Peakview Road\"\r\n        },\r\n        {\r\n            \"name\": \"place3\",\r\n            \"streetAddress\":\"\",\r\n            \"latitude\":\"36.66417203777455\",\r\n            \"longitude\":\"-114.60937500000001\",\r\n            \"municipality\":\"Clark County\",\r\n            \"region\":\"Nevada\",\r\n            \"country\":\"United States\",\r\n            \"defaultDisplayName\":\"Clark County\"\r\n        },\r\n        {\r\n            \"name\": \"place4\",        \r\n            \"streetAddress\":\"Bellflower Trail\",\r\n            \"latitude\":\"38.30611278139036\",\r\n            \"longitude\":\"-104.765625\",\r\n            \"municipality\":\"Pueblo County\",\r\n            \"region\":\"Colorado\",\r\n            \"country\":\"United States\",\r\n            \"postcode\":\"81007\",\r\n            \"defaultDisplayName\":\"Bellflower Trail\"\r\n        },\r\n        {\r\n            \"name\": \"place5\",        \r\n            \"streetAddress\":\"\",\r\n            \"latitude\":\"38.78755468323165\",\r\n            \"longitude\":\"-112.41210937500001\",\r\n            \"municipality\":\"Kanosh\",\r\n            \"region\":\"Utah\",\r\n            \"country\":\"United States\",\r\n            \"postcode\":\"84637\",\r\n            \"defaultDisplayName\":\"Kanosh\"\r\n        },\r\n        {\r\n            \"name\": \"place6\",        \r\n            \"streetAddress\":\"466 Avenue\",\r\n            \"latitude\":\"41.07985468665534\",\r\n            \"longitude\":\"-99.140625\",\r\n            \"municipality\":\"Sherman County\",\r\n            \"region\":\"Nebraska\",\r\n            \"country\":\"United States\",\r\n            \"postcode\":\"68852\",\r\n            \"defaultDisplayName\":\"466 Avenue\"\r\n        },\r\n        {\r\n            \"name\": \"place7\",        \r\n            \"streetAddress\":\"US 385\",\r\n            \"latitude\":\"34.77456593394875\",\r\n            \"longitude\":\"-102.39257812500001\",\r\n            \"municipality\":\"Hereford\",\r\n            \"region\":\"Texas\",\r\n            \"country\":\"United States\",\r\n            \"postcode\":\"79045\",\r\n            \"defaultDisplayName\":\"US 385\"\r\n        },\r\n        {\r\n            \"name\": \"place8\",        \r\n            \"streetAddress\":\"\",\r\n            \"latitude\":\"39.605364131667066\",\r\n            \"longitude\":\"-117.77343750000001\",\r\n            \"municipality\":\"Churchill County\",\r\n            \"region\":\"Nevada\",\r\n            \"country\":\"United States\",\r\n            \"defaultDisplayName\":\"Churchill County\"\r\n        },\r\n        {\r\n            \"name\": \"place9\",        \r\n            \"streetAddress\":\"\",\r\n            \"latitude\":\"42.45714713256742\",\r\n            \"longitude\":\"-103.97460937500001\",\r\n            \"municipality\":\"Bowen Precinct\",\r\n            \"region\":\"Nebraska\",\r\n            \"country\":\"United States\",\r\n            \"postcode\":\"69346\",\r\n            \"defaultDisplayName\":\"Bowen Precinct\"\r\n        },\r\n        {\r\n            \"name\": \"place10\",        \r\n            \"streetAddress\":\"County Road Z\",\r\n            \"latitude\":\"38.93302385225025\",\r\n            \"longitude\":\"-103.00781250000001\",\r\n            \"municipality\":\"Cheyenne County\",\r\n            \"region\":\"Colorado\",\r\n            \"country\":\"United States\",\r\n            \"defaultDisplayName\":\"County Road Z\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hca1197:testRadiusLessThanOne",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c56aa6f6-9aab-40ed-bf17-151be8278f37",
+						"exec": [
+							"pm.test(\"Radius status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "34a73cb1-9412-4bc9-8ac6-ec5b0110aeb3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"tour\",\r\n  \"earthRadius\": 0.5,\r\n  \"response\": 0.5,\r\n  \"places\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hca1197:testResponseLessThanZero",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6af926b-875c-42c3-a7e7-a28414c3eaa2",
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "820eb69a-6a1a-4a5b-865a-ffb03095578b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"tour\",\r\n  \"earthRadius\": 3959.0,\r\n  \"response\": -0.5,\r\n  \"places\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
