@@ -34,9 +34,10 @@ public class sendSQL {
     public List<String> getPlacesForWhere() throws BadRequestException {
         try {
             String select = "SELECT DISTINCT country.name AS country ";
-            String from = "FROM continent INNER JOIN country ON continent.id = country.continent INNER JOIN region ON country.id = region.iso_country INNER JOIN world ON region.id = world.iso_region";
+            String from = "FROM continent INNER JOIN country ON continent.id = country.continent INNER JOIN region ON country.id = region.iso_country INNER JOIN world ON region.id = world.iso_region ";
+            String orderBy = "ORDER BY country.name;";
 
-            ResultSet results = performQuery(select+from); 
+            ResultSet results = performQuery(select+from+orderBy); 
             List<String> contries = new ArrayList<String>();
     
             while (results.next()) {

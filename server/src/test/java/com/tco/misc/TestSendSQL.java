@@ -6,7 +6,6 @@ import com.tco.requests.Place;
 import com.tco.requests.Places;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -125,4 +124,27 @@ public class TestSendSQL {
 
     }
 
+    @Test
+    @DisplayName("mstencel: Checking if countries are sorted alphabetically")
+    public void testGetPlacesForWhereOrder() {
+        sendSQL send = new sendSQL();
+        List<String> countries;
+        try {
+            countries = send.getPlacesForWhere(); 
+            List<String> sortedCountries = new ArrayList<>(countries); 
+            Collections.sort(sortedCountries); 
+    
+            boolean isSorted = true;
+            for (int i = 0; i < countries.size(); i++) {
+                if (countries.get(i).charAt(0) != sortedCountries.get(i).charAt(0)) {
+                    isSorted = false;
+                    break;
+                }
+            }
+
+            assertTrue(isSorted, "Countries are not sorted alphabetically.");
+        } catch (BadRequestException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+    }
 }
