@@ -27,20 +27,20 @@ public class TestPlace {
     }
 
     @Test
-    @DisplayName("wymark: test latitude radian to radian conversion")
-    public void testLatRadiansToRadians() {
+    @DisplayName("wymark: test latitude degree to radian conversion with small degrees")
+    public void testLatSmallToRadians() {
         double latitude = 0.6505;
         double longitude = 0.0;
         Place place = new Place(latitude, longitude);
-        assertTrue(place.latRadians()==latitude);
+        assertTrue(place.latRadians()==Math.toRadians(latitude));
     }
 
     @Test
-    @DisplayName("wymark: test longitude radian to radian conversion")
-    public void testLonRadiansToRadians() {
+    @DisplayName("wymark: test longitude degree to radian conversion with small degrees")
+    public void testLonSmallToRadians() {
         double latitude = 0.0;
-        double longitude = -1.8828;
+        double longitude = 0.6505;
         Place place = new Place(latitude, longitude);
-        assertTrue(place.lonRadians()==longitude);
+        assertTrue(place.lonRadians()==Math.toRadians(longitude));
     }
 }

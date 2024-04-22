@@ -14,17 +14,11 @@ public class Place extends LinkedHashMap<String, String> implements GeographicCo
     
     public Double latRadians() { 
         Double lat = Double.parseDouble(this.get("latitude"));
-        if (Math.abs(lat) <= Math.PI) {
-            return lat;
-        }
         return Math.toRadians(lat); 
     }
 
     public Double lonRadians() {
         Double lon = Double.parseDouble(this.get("longitude"));
-        if (Math.abs(lon) <= Math.PI) {
-            return lon;
-        }
         return Math.toRadians(lon); 
     }
 }
