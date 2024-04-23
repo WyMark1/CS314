@@ -46,23 +46,7 @@ public abstract class TourOptimizer {
                 current_tour[i] = save;
             }
 
-            for (int j = 0; j < size - 1; j++) {
-                int from = current_tour[j];
-                long best_distance = distances[from][current_tour[j+1]];
-                int best_place = j+1;
-                for (int k = j + 1 ; k < size; k++) {
-                    int to = current_tour[k];
-                    if (distances[from][to] < best_distance) {
-                        best_distance = distances[from][to];
-                        best_place = k;
-                    }
-                }
-
-                int save = current_tour[j+1];
-                current_tour[j+1] = current_tour[best_place];
-                current_tour[best_place] = save;
-            }
-
+            current_tour = improveTour(current_tour, distances);
             improve(places, distances, current_tour);
             long current_min_distance = getTotalDistance(distances, current_tour);
 
@@ -102,5 +86,25 @@ public abstract class TourOptimizer {
         
         totalDistance += distances[tour.length-1][0];
         return totalDistance;
+    }
+
+    private int[] improveTour(int[] tour, long[][] distances) {
+        for (int j = 0; j < tour.length - 1; j++) {
+            int from = tour[j];
+            long best_distance = distances[from][tour[j+1]];
+            int best_place = j+1;
+            for (int k = j + 1 ; k < tour.length; k++) {
+                int to = tour[k];
+                if (distances[from][to] < best_distance) {
+                    best_distance = distances[from][to];
+                    best_place = k;
+                }
+            }
+
+            int save = tour[j+1];
+            tour[j+1] = tour[best_place];
+            tour[best_place] = save;
+        }
+        return tour;
     }
 }
