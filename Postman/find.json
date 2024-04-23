@@ -53,7 +53,7 @@
 			"response": []
 		},
 		{
-			"name": "brownbp;FindTest",
+			"name": "brownbp:FindTest",
 			"event": [
 				{
 					"listen": "test",

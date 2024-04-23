@@ -51,6 +51,66 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "brownbp:DistanceTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "011c978b-f59c-4e14-9f65-5be58024bd14",
+						"exec": [
+							"pm.test(\"Status code is 200 for 'Distance' endpoint\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains distances array\", function () {\r",
+							"    let resp = pm.response.json();\r",
+							"    pm.expect(resp).to.have.property(\"distances\");\r",
+							"    pm.expect(resp.distances).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each distance entry is properly structured\", function () {\r",
+							"    let resp = pm.response.json();\r",
+							"    if (resp.distances.length > 0) {\r",
+							"        pm.expect(resp.distances[0]).to.have.all.keys(\"from\", \"to\", \"distance\");\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c1fb1eb3-c49e-47c4-be35-235f2220e396",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [],\r\n    \"earthRadius\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

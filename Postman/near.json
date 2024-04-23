@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "5bcd049d-95d0-4724-8381-b577e82e4426",
+		"name": "near",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "32979267-5bcd049d-95d0-4724-8381-b577e82e4426"
+	},
+	"item": [
+		{
+			"name": "base",
+			"id": "fbf0b86a-c345-46d1-a38f-6feffc5d4d6f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"match\": \"denver\",\r\n    \"limit\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "brownbp:NearTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0fcf7ad6-b6cd-4d08-99e0-6885a876f093",
+						"exec": [
+							"pm.test(\"Status code is 400 for 'Near' endpoint\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected properties for 'Near' endpoint\", function () {\r",
+							"    let resp = pm.response.json();\r",
+							"    pm.expect(resp).to.have.property(\"requestType\");\r",
+							"    pm.expect(resp).to.have.property(\"match\");\r",
+							"    pm.expect(resp).to.have.property(\"limit\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check values of properties\", function () {\r",
+							"    let resp = pm.response.json();\r",
+							"    pm.expect(resp.requestType).to.eql(\"near\");\r",
+							"    pm.expect(resp.match).to.eql(\"denver\");\r",
+							"    pm.expect(resp.limit).to.eql(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "ac707927-20e5-4971-bf15-e41f8643cf33",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"match\": \"denver\",\r\n    \"limit\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
