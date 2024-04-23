@@ -18,14 +18,14 @@ public class sendSQL {
     
     public sendSQL() {}
     
-    public ResultSet performQuery (String sql) throws BadRequestException {
+    public ResultSet performQuery(String sql) throws BadRequestException {
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement query = conn.createStatement();
             ResultSet results = query.executeQuery(sql);
-            resultCount = getResult(results);
+            resultCount = getResult(sql);
             return results;
-        } catch (Exception e){
+        } catch (Exception e) {
             BadRequestException BRE = new BadRequestException("Invalid Query preform query: " + e.getMessage(), e);
             throw BRE;
         }
@@ -75,18 +75,26 @@ public class sendSQL {
         return resultCount;
     }
 
-    private int getResult(ResultSet resultSet) throws BadRequestException {
-        int count = 0;
+    private int getResult(String sql) throws BadRequestException {
+        String countSql = sql.replaceAll("LIMIT \\d+", "");
         try {
-            resultSet.last();
-            count = resultSet.getRow();
-            resultSet.beforeFirst();
-
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement query = conn.createStatement();
+            ResultSet results = query.executeQuery(countSql);
+            int count = 0;
+            try {
+                results.last();
+                count = results.getRow();
+                results.beforeFirst();
+            } catch (Exception e) {
+                BadRequestException BRE = new BadRequestException("Places: " + e.getMessage(), e);
+                throw BRE;
+            }
+            
+            return count;
         } catch (Exception e) {
-            BadRequestException BRE = new BadRequestException("Places: " + e.getMessage(), e);
+            BadRequestException BRE = new BadRequestException("Count Total Results: " + e.getMessage(), e);
             throw BRE;
         }
-        return count;
     }
-
-}
+    }
