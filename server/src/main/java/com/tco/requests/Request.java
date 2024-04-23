@@ -10,6 +10,5 @@ public abstract class Request {
         return requestType;
     }
 
-    // Overrideable Methods
     public abstract void buildResponse() throws BadRequestException;
 }

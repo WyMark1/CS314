@@ -4,7 +4,10 @@ import java.util.ArrayList;
 public class Distances extends ArrayList<Long> {
 
     public long total() {
-        return 0;
+        long sum = 0;
+        for (Long distance : this) {
+            sum += distance;
+        }
+        return sum;
     }
-    
 }

@@ -1,14 +1,34 @@
 {
 	"info": {
-		"_postman_id": "5bcd049d-95d0-4724-8381-b577e82e4426",
+
+		"_postman_id": "f98666df-2866-4067-bc1e-601a91db6b83",
 		"name": "near",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "32979267-5bcd049d-95d0-4724-8381-b577e82e4426"
+		"_uid": "32926519-f98666df-2866-4067-bc1e-601a91db6b83"
+
 	},
 	"item": [
 		{
 			"name": "base",
-			"id": "fbf0b86a-c345-46d1-a38f-6feffc5d4d6f",
+
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca3e4304-25a3-4fcc-9f19-ac299b4b811a",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "374017fc-f895-4854-a88d-f83bc45889b4",
+
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -17,7 +37,9 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"match\": \"denver\",\r\n    \"limit\": 1\r\n}",
+
+					"raw": "{\r\n  \"requestType\"    : \"near\",\r\n  \"place\"          : {\"latitude\":\"0.0\", \"longitude\":\"0.0\"},\r\n  \"distance\"       : 1,\r\n  \"earthRadius\"    : 1.0,\r\n    \"limit\"          : 1\r\n}",
+
 					"options": {
 						"raw": {
 							"language": "json"
@@ -38,38 +60,36 @@
 			"response": []
 		},
 		{
-			"name": "brownbp:NearTest",
+
+			"name": "hca1197:testNearRequest",
+
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "0fcf7ad6-b6cd-4d08-99e0-6885a876f093",
+
+						"id": "109e5593-6e3e-4611-a5eb-f6eed36bc5cb",
 						"exec": [
-							"pm.test(\"Status code is 400 for 'Near' endpoint\", function () {\r",
-							"    pm.response.to.have.status(400);\r",
+							"var responseBody = pm.response.json();\r",
+							"var expectedPlaceIds = [\"RJ01\", \"RJTI\", \"JP-0003\"];\r",
+							"var expectedDistances = [2, 5, 7];\r",
+							"\r",
+							"expectedPlaceIds.forEach(function(expectedId) {\r",
+							"    pm.test(\"Place with ID '\" + expectedId + \"' exists\", function () {\r",
+							"        pm.expect(responseBody.places.some(place => place.id === expectedId)).to.be.true;\r",
+							"    });\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response contains expected properties for 'Near' endpoint\", function () {\r",
-							"    let resp = pm.response.json();\r",
-							"    pm.expect(resp).to.have.property(\"requestType\");\r",
-							"    pm.expect(resp).to.have.property(\"match\");\r",
-							"    pm.expect(resp).to.have.property(\"limit\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Check values of properties\", function () {\r",
-							"    let resp = pm.response.json();\r",
-							"    pm.expect(resp.requestType).to.eql(\"near\");\r",
-							"    pm.expect(resp.match).to.eql(\"denver\");\r",
-							"    pm.expect(resp.limit).to.eql(1);\r",
-							"});\r",
-							""
+							"pm.test(\"Distances match expected values\", function () {\r",
+							"    pm.expect(responseBody.distances).to.eql(expectedDistances);\r",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
 					}
 				}
 			],
-			"id": "ac707927-20e5-4971-bf15-e41f8643cf33",
+			"id": "118a6cb9-fb0d-4d90-b069-b9409db769ea",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -78,7 +98,68 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"match\": \"denver\",\r\n    \"limit\": 1\r\n}",
+					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"place\": {\r\n      \"latitude\": \"35.65\",\r\n      \"longitude\": \"139.75\"\r\n    },\r\n    \"distance\": 20,\r\n    \"earthRadius\": 3959,\r\n    \"limit\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hca1197:testNearRequest2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b7516bd-0172-4b6c-a61e-04c5edcbed78",
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"var expectedPlaceIds = [\"SD70\", \"0SD9\", \"SD86\"];\r",
+							"var expectedDistances = [1, 10, 10];\r",
+							"\r",
+							"expectedPlaceIds.forEach(function(expectedId) {\r",
+							"    pm.test(\"Place with ID '\" + expectedId + \"' exists\", function () {\r",
+							"        pm.expect(responseBody.places.some(place => place.id === expectedId)).to.be.true;\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Distances match expected values\", function () {\r",
+							"    pm.expect(responseBody.distances).to.eql(expectedDistances);\r",
+							"});"
+
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+
+			"id": "389e04a9-09e6-41f4-a9b6-87558b15dea2",
+
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+
+					"raw": "{\r\n    \"requestType\": \"near\",\r\n    \"place\": {\r\n        \"name\": \"Mount Rushmore\",\r\n        \"latitude\": \"43.8803\",\r\n        \"longitude\": \"-103.4538\"\r\n    },\r\n    \"distance\": 10,\r\n    \"earthRadius\": 3959,\r\n    \"limit\": 3\r\n}",
+
 					"options": {
 						"raw": {
 							"language": "json"

@@ -14,8 +14,8 @@
 					"script": {
 						"id": "267701e2-5df4-439a-b6c3-4523602c4e35",
 						"exec": [
-							"pm.test(\"Response is HTTP404 status\", () => {",
-							"    pm.response.to.have.status(404);",
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
 							"});",
 							""
 						],
@@ -53,37 +53,33 @@
 			"response": []
 		},
 		{
-			"name": "brownbp:DistanceTest",
+			"name": "hca1197:testDistanceRequest",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "011c978b-f59c-4e14-9f65-5be58024bd14",
+						"id": "afee1500-b7ca-4550-9ca7-6c181368755a",
 						"exec": [
-							"pm.test(\"Status code is 200 for 'Distance' endpoint\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"var responseBody = pm.response.json();\r",
+							"var distances = responseBody.distances;\r",
+							"var expectedDistances = [9059423, 10354911, 17008589, 6689694];\r",
+							"\r",
+							"pm.test(\"Number of distances matches\", function () {\r",
+							"    pm.expect(distances.length).to.eql(expectedDistances.length);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response contains distances array\", function () {\r",
-							"    let resp = pm.response.json();\r",
-							"    pm.expect(resp).to.have.property(\"distances\");\r",
-							"    pm.expect(resp.distances).to.be.an(\"array\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Each distance entry is properly structured\", function () {\r",
-							"    let resp = pm.response.json();\r",
-							"    if (resp.distances.length > 0) {\r",
-							"        pm.expect(resp.distances[0]).to.have.all.keys(\"from\", \"to\", \"distance\");\r",
-							"    }\r",
-							"});\r",
-							""
+							"for (var i = 0; i < expectedDistances.length; i++) {\r",
+							"    pm.test(\"Distance \" + i + \" matches\", function () {\r",
+							"        pm.expect(distances[i]).to.eql(expectedDistances[i]);\r",
+							"    });\r",
+							"}"
 						],
 						"type": "text/javascript",
 						"packages": {}
 					}
 				}
 			],
-			"id": "c1fb1eb3-c49e-47c4-be35-235f2220e396",
+			"id": "82a1cf9d-7657-4f8d-9ffc-738243dacb52",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -92,7 +88,112 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [],\r\n    \"earthRadius\": 1\r\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [\r\n        {\"name\": \"Grand Rapids, USA\", \"latitude\": \"42.9634\", \"longitude\": \"-85.6681\"},\r\n        {\"name\": \"Buenos Aires, Argentina\", \"latitude\": \"-34.6037\", \"longitude\": \"-58.3816\"},\r\n        {\"name\": \"Auckland, New Zealand\", \"latitude\": \"-36.8485\", \"longitude\": \"174.7633\"},\r\n        {\"name\": \"Stockholm, Sweden\", \"latitude\": \"59.3293\", \"longitude\": \"18.0686\"}\r\n    ],\r\n    \"earthRadius\": 6371008.7714,\r\n    \"formula\": \"vincenty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "wymark:incorrectFormulaThrowsError",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1670b1fb-73c4-403a-bc1b-deb7bcc0dd95",
+						"exec": [
+							"pm.test(\"Response is HTTP400 status\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "c5e86abe-db05-40b4-a0b8-99e3e8822a53",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [],\r\n    \"earthRadius\": 1,\r\n    \"formula\": \"elipsoid\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "wymark:smallDegree",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46dc5294-258f-48f0-9212-b72669bb66e4",
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"var distances = responseBody.distances;\r",
+							"var expectedDistances = [18,13,18,13];\r",
+							"\r",
+							"pm.test(\"Number of distances matches\", function () {\r",
+							"    pm.expect(distances.length).to.eql(expectedDistances.length);\r",
+							"});\r",
+							"\r",
+							"for (var i = 0; i < expectedDistances.length; i++) {\r",
+							"    pm.test(\"Distance \" + i + \" matches\", function () {\r",
+							"        pm.expect(distances[i]).to.eql(expectedDistances[i]);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "8cb2bb77-91da-48b8-9dbe-476396c8b466",
+
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\"    : \"distances\",\r\n    \"places\"          : [{\"name\": \"Unkown\", \"latitude\": \"-0.1\", \"longitude\": \"-0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"0.1\", \"longitude\": \"0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"0.1\", \"longitude\": \"-0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"-0.1\", \"longitude\": \"0.1\"}],\r\n    \"earthRadius\"    : 3690,\r\n    \"formula\"         : \"vincenty\"\r\n  }",
+
 					"options": {
 						"raw": {
 							"language": "json"
