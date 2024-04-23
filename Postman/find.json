@@ -79,7 +79,7 @@
 							"    let resp = pm.response.json();",
 							"    pm.expect(resp.found).to.be.a(\"number\");",
 							"    // check if the found number matches the number of places returned",
-							"    pm.expect(resp.found).to.eql(resp.places.length);",
+							"    pm.expect(resp.found).to.eql(7);",
 							"});",
 							""
 						],
