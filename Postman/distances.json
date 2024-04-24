@@ -183,6 +183,7 @@
 				}
 			],
 			"id": "8cb2bb77-91da-48b8-9dbe-476396c8b466",
+
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -192,6 +193,7 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"requestType\"    : \"distances\",\r\n    \"places\"          : [{\"name\": \"Unkown\", \"latitude\": \"-0.1\", \"longitude\": \"-0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"0.1\", \"longitude\": \"0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"0.1\", \"longitude\": \"-0.1\"},\r\n    {\"name\": \"Unkown\", \"latitude\": \"-0.1\", \"longitude\": \"0.1\"}],\r\n    \"earthRadius\"    : 3690,\r\n    \"formula\"         : \"vincenty\"\r\n  }",
+
 					"options": {
 						"raw": {
 							"language": "json"
