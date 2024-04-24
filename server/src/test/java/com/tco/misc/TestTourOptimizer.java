@@ -78,7 +78,7 @@ public class TestTourOptimizer {
 
     @Test
     @DisplayName("hca1197: Testing construct throws BadRequestException for radius less than 1.0 or response less than 0.0")
-    public void testRadiusOrResponseLessThanMinimum() {
+    public void TestRadiusOrResponseLessThanMinimum() {
         NoOptimizer optimizer = new NoOptimizer();
         Places places = new Places();
         Double radius = 0.5;
@@ -94,7 +94,7 @@ public class TestTourOptimizer {
 
     @Test
     @DisplayName("hca1197: Testing construct throws BadRequestException for invalid formula")
-    public void testInvalidFormula() {
+    public void TestInvalidFormula() {
         NoOptimizer optimizer = new NoOptimizer();
         Places places = new Places();
         Double radius = 1.0;
