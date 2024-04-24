@@ -53,6 +53,64 @@
 			"response": []
 		},
 		{
+			"name": "wymark:TestAllFieldsChecked",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "afa7c4f7-7b40-41cb-9289-907ba970480d",
+						"exec": [
+							"var responseBody = pm.response.json();",
+							"",
+							"var expectedPlaceIds = [\"1TA5\",\"6NC1\",\"KAPA\"];",
+							"var expectedFound = 8;",
+							"",
+							"expectedPlaceIds.forEach(function(expectedId) {",
+							"    pm.test(\"Place with ID '\" + expectedId + \"' exists\", function () {",
+							"        pm.expect(responseBody.places.some(place => place.id === expectedId)).to.be.true;",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Found match expected value\", function () {",
+							"    pm.expect(responseBody.found).to.be.a(\"number\");",
+							"    pm.expect(responseBody.found).to.eql(expectedFound);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "4214c077-8bb1-4867-9a5c-0a69759192d2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 3,\n    \"type\": [\"airport\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "brownbp:FindTest",
 			"event": [
 				{
@@ -79,7 +137,7 @@
 							"    let resp = pm.response.json();",
 							"    pm.expect(resp.found).to.be.a(\"number\");",
 							"    // check if the found number matches the number of places returned",
-							"    pm.expect(resp.found).to.eql(7);",
+							"    pm.expect(resp.found).to.eql(30);",
 							"});",
 							""
 						],
@@ -186,9 +244,9 @@
 						"exec": [
 							"var responseBody = pm.response.json();",
 							"",
-							"var expectedPlaceIds = [\"K3V5\",\"KFNL\"];",
+							"var expectedPlaceIds = [\"0CO4\",\"0CO7\",\"2CO0\",\"50CO\",\"65CO\"];",
 							"var expectedRegion = \"Colorado\";",
-							"var expectedFound = 2;",
+							"var expectedFound = 13;",
 							"",
 							"expectedPlaceIds.forEach(function(expectedId) {",
 							"    pm.test(\"Place with ID '\" + expectedId + \"' exists\", function () {",
