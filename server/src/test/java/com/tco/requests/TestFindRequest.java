@@ -78,13 +78,13 @@ public class TestFindRequest {
         catch (Exception e) {
                 fail("Exception occurred: " + e.getMessage());
         }
-        assertEquals(14776, findRequest.getFound());
+        assertEquals(14921, findRequest.getFound());
     }
     @Test
     @DisplayName("josh1302: Test no type.")
     public void testNotype() throws BadRequestException{
         String match = "a";
-        List<String> type = Arrays.asList();
+        List<String> type = null;
         List<String> where = Arrays.asList("United States", "China");
         Integer limit = 3;
         FindRequest findRequest = new FindRequest(match, type, where, limit);
@@ -94,15 +94,15 @@ public class TestFindRequest {
         catch (Exception e) {
                 fail("Exception occurred: " + e.getMessage());
         }
-        assertEquals(19999, findRequest.getFound());
+        assertEquals(22027, findRequest.getFound());
     }
 
     @Test
     @DisplayName("hca1197: Test found returns total number found and not just limit.")
     public void testFoundFix() throws BadRequestException{
         String match = "she";
-        List<String> type = Arrays.asList();
-        List<String> where = Arrays.asList();
+        List<String> type = null;
+        List<String> where = null;
         Integer limit = 5;
         FindRequest findRequest = new FindRequest(match, type, where, limit);
         try{
@@ -111,6 +111,6 @@ public class TestFindRequest {
         catch (Exception e) {
                 fail("Exception occurred: " + e.getMessage());
         }
-        assertEquals(findRequest.getFound(), 299);
+        assertEquals(findRequest.getFound(), 454);
     }
 }

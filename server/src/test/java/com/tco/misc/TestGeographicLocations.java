@@ -233,7 +233,7 @@ public class TestGeographicLocations {
     @DisplayName("wymark: Testing find with type only")
     public void TestFindWithType() {
         GeographicLocations geoloc = new GeographicLocations();
-        List<String> where = new ArrayList<String>();
+        List<String> where = null;
         String match = "hello";
         List<String> type = new ArrayList<String>();
         type.add("airport");
@@ -241,27 +241,40 @@ public class TestGeographicLocations {
         int limit = 3;
         Places result = new Places();
         Place place1 = new Place();
-        Place place2 = new Place();
-        place1.put("id", "KS70");
-        place1.put("name", "Othello Municipal Airport");
+        place1.put("id", "24WA");
+        place1.put("name", "Othello Community Hospital Heliport");
         place1.put("municipality", "Othello");
         place1.put("region", "Washington");
         place1.put("country", "United States");
-        place1.put("latitude", "46.79489899");
-        place1.put("longitude", "-119.0790024");
-        place1.put("altitude", "1139");
-        place1.put("type", "small_airport");
-        place2.put("id", "24WA");
-        place2.put("name", "Othello Community Hospital Heliport");
+        place1.put("latitude", "46.82609939575195");
+        place1.put("longitude", "-119.16899871826172");
+        place1.put("altitude", "1038");
+        place1.put("type", "heliport");
+        result.add(place1);
+
+        Place place2 = new Place();
+        place2.put("id", "57WA");
+        place2.put("name", "Kent Farms Airport");
         place2.put("municipality", "Othello");
         place2.put("region", "Washington");
         place2.put("country", "United States");
-        place2.put("latitude", "46.82609939575195");
-        place2.put("longitude", "-119.16899871826172");
-        place2.put("altitude", "1038");
-        place2.put("type", "heliport");
+        place2.put("latitude", "46.87350082397461");
+        place2.put("longitude", "-119.12999725341797");
+        place2.put("altitude", "1155");
+        place2.put("type", "small_airport");
         result.add(place2);
-        result.add(place1);
+
+        Place place3 = new Place();
+        place3.put("id", "6WA4");
+        place3.put("name", "Ochoa Field");
+        place3.put("municipality", "Othello");
+        place3.put("region", "Washington");
+        place3.put("country", "United States");
+        place3.put("latitude", "46.8628997803");
+        place3.put("longitude", "-119.138999939");
+        place3.put("altitude", "1149");
+        place3.put("type", "small_airport");
+        result.add(place3);
         try {
             assertEquals(result, geoloc.find(match,type,where,limit));
         } catch (Exception e) {

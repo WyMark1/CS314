@@ -75,32 +75,42 @@ public class GeographicLocations {
     public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
         String types = "";
         String countries = "";
-        if (type != null) {
-            if(type.size()==1){
-            types = " AND world.type LIKE " +"'%"+ type.get(0)+"%' ";
-            } else if(type.size()>1){
-                types = " AND (world.type LIKE " +"'%"+ type.get(0)+"%'";
-                for(int i = 1; i<type.size();i++){
-                    types+=" OR world.type LIKE "+"'%"+type.get(i)+"%'";
+        if (type != null && type.size() != 0) {
+            types = " AND (";
+            for (int i = 0; i < type.size(); i++){
+                types += compareAgainstAll(type.get(i));
+                if (i+1 != type.size()) {
+                    types += " OR ";
                 }
-            types+=") ";
             }
+            types += ")";
         }
-        if (where != null) {
-            if(where.size()==1){
-            countries = " AND country.name LIKE " +"'%"+ where.get(0)+"%' ";
-            } else if(where.size()>1){
-                countries = " AND (country.name LIKE " +"'%"+ where.get(0)+"%'";
-                for(int i = 1; i<where.size();i++){
-                    countries+=" OR country.name LIKE "+"'%"+where.get(i)+"%'";
+
+        if (where != null && where.size() != 0) {
+            countries = " AND (";
+            for (int i = 0; i < where.size(); i++){
+                countries += compareAgainstAll(where.get(i));
+                if (i+1 != where.size()) {
+                    countries += " OR ";
                 }
-            countries+=") ";
             }
+            countries += ")";
         }
-        String whereFind = "WHERE world.name LIKE "+"'%"+match+ "%'"+types+"  "+countries+"LIMIT "+limit+";";
+
+        String find = compareAgainstAll(match);
+        String whereFind = "WHERE ("+find+") "+types+""+countries+" LIMIT "+limit+";";
         sendSQL send = new sendSQL();
         Places place = send.places(select + from + whereFind);
         found = send.found();
         return place;
+    }
+
+    private String compareAgainstAll(String match) {
+        String[] compare = {"world.name", "world.municipality", "region.name", "country.name", "world.type"};
+        String ret = "world.id LIKE '%" + match + "%' ";
+        for(String type : compare) {
+            ret += " OR " + type + " LIKE '%" + match + "%' ";
+        }
+        return ret;
     }
 }
