@@ -8,19 +8,19 @@ import java.util.Collections;
 
 public abstract class TourOptimizer {
     public Places construct(Places places, Double radius, String formula, Double response) throws BadRequestException {
-        if (radius < 1.0 || response < 0.0) { 
-            throw new IllegalArgumentException("Radius must be at least 1 and response must be positive.");
+        if (radius < 1.0 || response < 0.0) {
+            throw new BadRequestException("Radius must be at least 1 and response must be positive.");
         }
 
         GreatCircleDistance calculator = CalculatorFactory.get(formula);
         if (calculator == null) {
-            throw new IllegalArgumentException("Unsupported formula: " + formula);
+            throw new BadRequestException("Unsupported formula: " + formula);
         }
 
         if (places.size() < 4 || response == 0.0) return places;
         if (places.size() >= 1300) return places;
         long[][] distances = getDistances(places, calculator, radius);
-        places = applyNearestNeighborOptimization(places, distances, response); 
+        places = applyNearestNeighborOptimization(places, distances, response);
         return places;
     }
 
