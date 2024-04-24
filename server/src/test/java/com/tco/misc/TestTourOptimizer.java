@@ -75,4 +75,36 @@ public class TestTourOptimizer {
         fail("Exception occurred: " + e.getMessage());
     }
     }
+
+    @Test
+    @DisplayName("hca1197: Testing construct throws BadRequestException for radius less than 1.0 or response less than 0.0")
+    public void TestRadiusOrResponseLessThanMinimum() {
+        NoOptimizer optimizer = new NoOptimizer();
+        Places places = new Places();
+        Double radius = 0.5;
+        String formula = "vincenty";
+        Double response = -0.1; 
+        try {
+            optimizer.construct(places, radius, formula, response);
+            fail("Expected BadRequestException, but no exception was thrown");
+        } catch (BadRequestException e) {
+            assertEquals("Radius must be at least 1 and response must be positive.", e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("hca1197: Testing construct throws BadRequestException for invalid formula")
+    public void TestInvalidFormula() {
+        NoOptimizer optimizer = new NoOptimizer();
+        Places places = new Places();
+        Double radius = 1.0;
+        String formula = "null"; 
+        Double response = 0.1;
+        try {
+            optimizer.construct(places, radius, formula, response);
+            fail("Expected BadRequestException, but no exception was thrown");
+        } catch (BadRequestException e) {
+            assertEquals("Unsupported formula: " + formula, e.getMessage());
+        }
+    }
 }
