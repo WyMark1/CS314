@@ -181,22 +181,23 @@ public class TestGeographicLocations {
     }
 
     @Test
-    @DisplayName("mstencel: Testing sorting list to ensure distances over limit are removed and list is sorted")
-    public void TestRemoveExtraDistances() {
+    @DisplayName("mstencel: Testing sorting list to ensure distances over limit are removed")
+    public void TestRemoveExtraAndSortDistances() {
         GeographicLocations geoloc = new GeographicLocations();
         Distances distanceList = new Distances();
-        Distances correctDistances = new Distances();
         Place location1 = new Place(1.0, 1.0);
         Place location2 = new Place(2.0, 2.0);
         Place location3 = new Place(3.0, 3.0);
         Place place = new Place(0.0, 0.0);
         Places places = new Places();
+        Places sortedPlaces = new Places();
+        Places correctPlaces = new Places();
         places.addAll(Arrays.asList(location1, location2, location3, place));
-        int distance = 4;
+        int distance = 3;
         distanceList.addAll(Arrays.asList(1L, 2L, 3L, 4L));
-        correctDistances.addAll(Arrays.asList(1L, 2L, 3L));
-        geoloc.removeExtraDistances(distanceList, places, 4);
-        assertEquals(correctDistances, distanceList);
+        correctPlaces.addAll(Arrays.asList(location1, location2, location3));
+        sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance);
+        assertEquals(correctPlaces, sortedPlaces);
     }
 
     @Test
@@ -226,7 +227,7 @@ public class TestGeographicLocations {
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
         }
-    }
+    } 
 
     @Test 
     @DisplayName("wymark: Testing find with type only")
@@ -374,6 +375,28 @@ public class TestGeographicLocations {
         } catch (Exception e) {
             fail("Exception occurred: " + e.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("mstencel: Testing distance sorting for near")
+        public void testRemoveExtraAndSortDistancesSorting() {
+            GeographicLocations geoloc = new GeographicLocations();
+            Distances distanceList = new Distances();
+            Place location1 = new Place(1.0, 1.0);
+            Place location2 = new Place(4.0, 4.0);
+            Place location3 = new Place(10.0, 10.0);
+            Place place = new Place(0.0, 0.0);
+            Places places = new Places();
+            places.addAll(Arrays.asList(location3, location1, place, location2));
+            distanceList.addAll(Arrays.asList(3L, 1L, 4L, 2L));
+            int distance = 5;
+            Places sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance);
+            Place[] expectedPlaces = { location1, location2, location3 };
+
+            for (int i = 0; i < sortedPlaces.size() - 1; i++) {
+               assertEquals(expectedPlaces[i], sortedPlaces.get(i));
+            }
+
     }
 }
 

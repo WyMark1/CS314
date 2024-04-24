@@ -33,8 +33,8 @@ public class GeographicLocations {
         String sql = selectNear + from + where + orderBy;
         sendSQL s = new sendSQL();
         distanceList = distances(place, s.places(sql), earthRadius, formula);
-        removeExtraDistances(distanceList, s.places(sql), distance);
-        return s.places(sql);
+        Places sortedPlaces = removeExtraAndSortDistances(distanceList, s.places(sql), distance);
+        return sortedPlaces;
     }
 
     public Distances distances(Place place, Places places, double earthRadius, String formula) throws BadRequestException {
@@ -42,6 +42,7 @@ public class GeographicLocations {
         Places sortedPlaces = new Places();
         CalculatorFactory calcFac = new CalculatorFactory();
         GreatCircleDistance formulaType = calcFac.get(formula);
+        
         for (Place p : places) {
             if (!place.equals(p)) {
                 distances.add(formulaType.between(place, p, earthRadius));
@@ -51,21 +52,25 @@ public class GeographicLocations {
         return distances;
     }
 
-    public void removeExtraDistances(Distances distances, Places places, long distance) {
-        Distances sortedDistances = new Distances();
-        Places sortedPlaces = new Places();
+    public Places removeExtraAndSortDistances(Distances distances, Places places, long distance) {
+        TreeMap<Long, List<Place>> distanceMap = new TreeMap<>();
+
         for (int i = 0; i < distances.size(); i++) {
-            if (distances.get(i) < distance) {
-                sortedDistances.add(distances.get(i));
-                sortedPlaces.add(places.get(i));
+            long dist = distances.get(i);
+            if (dist <= distance) {
+                List<Place> placeList = distanceMap.computeIfAbsent(dist, k -> new ArrayList<>());
+                placeList.add(places.get(i));
             }
         }
-        
+
         places.clear();
-        distances.clear();
-        distances.addAll(sortedDistances);
-        places.addAll(sortedPlaces);
+        for (List<Place> placeList : distanceMap.values()) {
+            places.addAll(placeList);
+        }
+
+        return places;
     }
+
 
     public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
         String types = "";
