@@ -71,30 +71,25 @@ public class GeographicLocations {
         return places;
     }
 
-
+    public String stringCreator(List<String> list){
+        String sql = " AND (";
+        for (int i = 0; i < list.size(); i++){
+            sql += compareAgainstAll(list.get(i));
+            if (i+1 !=list.size()) {
+                sql += " OR ";
+            }
+        }
+        sql += ")";
+        return sql;
+    }
     public Places find(String match, List<String> type, List<String> where, int limit) throws BadRequestException {
         String types = "";
         String countries = "";
         if (type != null && type.size() != 0) {
-            types = " AND (";
-            for (int i = 0; i < type.size(); i++){
-                types += compareAgainstAll(type.get(i));
-                if (i+1 != type.size()) {
-                    types += " OR ";
-                }
-            }
-            types += ")";
+            types = stringCreator(type);
         }
-
         if (where != null && where.size() != 0) {
-            countries = " AND (";
-            for (int i = 0; i < where.size(); i++){
-                countries += compareAgainstAll(where.get(i));
-                if (i+1 != where.size()) {
-                    countries += " OR ";
-                }
-            }
-            countries += ")";
+            countries = stringCreator(where);
         }
 
         String find = compareAgainstAll(match);
