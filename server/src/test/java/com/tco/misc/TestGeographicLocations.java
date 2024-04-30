@@ -229,7 +229,7 @@ public class TestGeographicLocations {
         int distance = 3;
         distanceList.addAll(Arrays.asList(1L, 2L, 3L, 4L));
         correctPlaces.addAll(Arrays.asList(location1, location2, location3));
-        sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance, 4);
+        sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance);
         assertEquals(correctPlaces, sortedPlaces);
     }
 
@@ -436,7 +436,7 @@ public class TestGeographicLocations {
             places.addAll(Arrays.asList(location3, location1, place, location2));
             distanceList.addAll(Arrays.asList(3L, 1L, 4L, 2L));
             int distance = 5;
-            Places sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance, 4);
+            Places sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance);
             Place[] expectedPlaces = { location1, location2, location3 };
 
             for (int i = 0; i < sortedPlaces.size() - 1; i++) {

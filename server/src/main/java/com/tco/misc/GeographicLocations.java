@@ -36,8 +36,13 @@ public class GeographicLocations {
         String sql = selectNear + from + where + orderBy;
         sendSQL s = new sendSQL();
         distanceList = distances(place, s.places(sql), earthRadius, formula);
-        Places sortedPlaces = removeExtraAndSortDistances(distanceList, s.places(sql), distance, limit);
-        return sortedPlaces;
+        Places sortedPlaces = removeExtraAndSortDistances(distanceList, s.places(sql), distance);
+        Places ret = new Places();
+        for (int i = 0; i < sortedPlaces.size(); i++) {
+            if (i == limit) break;
+            ret.add(sortedPlaces.get(i));
+        }
+        return ret;
     }
 
     public Distances distances(Place place, Places places, double earthRadius, String formula) throws BadRequestException {
@@ -55,7 +60,7 @@ public class GeographicLocations {
         return distances;
     }
 
-    public Places removeExtraAndSortDistances(Distances distances, Places places, long distance, int limit) {
+    public Places removeExtraAndSortDistances(Distances distances, Places places, long distance) {
         TreeMap<Long, List<Place>> distanceMap = new TreeMap<>();
 
         for (int i = 0; i < distances.size(); i++) {
@@ -68,7 +73,6 @@ public class GeographicLocations {
 
         places.clear();
         for (List<Place> placeList : distanceMap.values()) {
-            if (places.size() == limit) break;
             places.addAll(placeList);
         }
 
