@@ -27,13 +27,16 @@ public class GeographicLocations {
         String lon = place.get("longitude");
         double latDelta = (distance / earthRadius) * (180 / Math.PI);
         double lonDelta = (distance / earthRadius) * (180 / Math.PI) / Math.cos(place.latRadians());
+        int sqlLimit = 200;
+        if (limit > sqlLimit) sqlLimit = limit;
+
         String selectNear = select + ", ABS(world.latitude - "+lat+") AS lat_diff,  ABS(world.longitude - "+lon+") AS lon_diff ";
         String where =  "WHERE world.latitude BETWEEN " +lat+ " - "+latDelta+" AND "+lat+" + "+latDelta+"  AND world.longitude BETWEEN " +lon+ " - "+ lonDelta +" AND "+lon+" + " + lonDelta;
-        String orderBy = " ORDER BY lat_diff + lon_diff LIMIT "+Integer.toString(limit) +";";
+        String orderBy = " ORDER BY lat_diff + lon_diff LIMIT "+Integer.toString(sqlLimit) +";";
         String sql = selectNear + from + where + orderBy;
         sendSQL s = new sendSQL();
         distanceList = distances(place, s.places(sql), earthRadius, formula);
-        Places sortedPlaces = removeExtraAndSortDistances(distanceList, s.places(sql), distance);
+        Places sortedPlaces = removeExtraAndSortDistances(distanceList, s.places(sql), distance, limit);
         return sortedPlaces;
     }
 
@@ -52,7 +55,7 @@ public class GeographicLocations {
         return distances;
     }
 
-    public Places removeExtraAndSortDistances(Distances distances, Places places, long distance) {
+    public Places removeExtraAndSortDistances(Distances distances, Places places, long distance, int limit) {
         TreeMap<Long, List<Place>> distanceMap = new TreeMap<>();
 
         for (int i = 0; i < distances.size(); i++) {
@@ -65,6 +68,7 @@ public class GeographicLocations {
 
         places.clear();
         for (List<Place> placeList : distanceMap.values()) {
+            if (places.size() == limit) break;
             places.addAll(placeList);
         }
 

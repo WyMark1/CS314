@@ -167,15 +167,15 @@ public class TestGeographicLocations {
             location.put("name", "NUll bouy");
             location.put("latitude", "0.0");
             location.put("longitude", "0.0");
-            place1.put("id", "DGAA");
-            place1.put("name", "Kotoka International Airport");
-            place1.put("municipality", "Accra");
-            place1.put("region", "Greater Accra Region");
+            place1.put("id", "DGTK");
+            place1.put("name", "Takoradi Airport");
+            place1.put("municipality", "Sekondi-Takoradi");
+            place1.put("region", "Western Region");
             place1.put("country", "Ghana");
-            place1.put("latitude", "5.605189800262451");
-            place1.put("longitude", "-0.16678600013256073");
-            place1.put("altitude", "205");
-            place1.put("type", "large_airport");
+            place1.put("latitude", "4.896059989929199");
+            place1.put("longitude", "-1.7747600078582764");
+            place1.put("altitude", "21");
+            place1.put("type", "medium_airport");
             result = geoloc.near(location, distance, earthRadius, formula, limit);
             Places expected = new Places();
             expected.add(place1);
@@ -229,7 +229,7 @@ public class TestGeographicLocations {
         int distance = 3;
         distanceList.addAll(Arrays.asList(1L, 2L, 3L, 4L));
         correctPlaces.addAll(Arrays.asList(location1, location2, location3));
-        sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance);
+        sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance, 4);
         assertEquals(correctPlaces, sortedPlaces);
     }
 
@@ -436,7 +436,7 @@ public class TestGeographicLocations {
             places.addAll(Arrays.asList(location3, location1, place, location2));
             distanceList.addAll(Arrays.asList(3L, 1L, 4L, 2L));
             int distance = 5;
-            Places sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance);
+            Places sortedPlaces = geoloc.removeExtraAndSortDistances(distanceList, places, distance, 4);
             Place[] expectedPlaces = { location1, location2, location3 };
 
             for (int i = 0; i < sortedPlaces.size() - 1; i++) {
