@@ -53,10 +53,43 @@ public class TestGeographicLocations {
     public void TestFind() {
         GeographicLocations geoloc = new GeographicLocations();
         List<String> where = null;
-        String match = "";
+        String match = "beze";
         List<String> type = null;
         int limit = 0;
         Places result = new Places();
+        Place place1 = new Place();
+        Place place2 = new Place();
+        Place place3 = new Place();
+        place1.put("id", "RU-0096");
+        place1.put("name", "Bezenchuk Airfield");
+        place1.put("municipality", "Bezenchuk");
+        place1.put("region", "Samara Oblast");
+        place1.put("country", "Russia");
+        place1.put("latitude", "52.96500015258789");
+        place1.put("longitude", "49.37799835205078");
+        place1.put("altitude", null);
+        place1.put("type", "small_airport");
+        place2.put("id", "SBJU");
+        place2.put("name", "Orlando Bezerra de Menezes Airport");
+        place2.put("municipality", "Juazeiro Do Norte");
+        place2.put("region", "Ceará");
+        place2.put("country", "Brazil");
+        place2.put("latitude", "-7.21895980835");
+        place2.put("longitude", "-39.270099639899996");
+        place2.put("altitude", "1392");
+        place2.put("type", "small_airport");
+        place3.put("id", "SJPD");
+        place3.put("name", "Riacho Verde Heliport");
+        place3.put("municipality", "Bezerros");
+        place3.put("region", "Pernambuco");
+        place3.put("country", "Brazil");
+        place3.put("latitude", "-8.256111145019531");
+        place3.put("longitude", "-35.772499084472656");
+        place3.put("altitude", "1664");
+        place3.put("type", "heliport");
+        result.add(place1);
+        result.add(place2);
+        result.add(place3);
         try {
             assertEquals(result, geoloc.find(match,type,where,limit));
         } catch (Exception e) {

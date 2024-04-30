@@ -97,6 +97,10 @@ public class GeographicLocations {
         sendSQL send = new sendSQL();
         Places place = send.places(select + from + whereFind);
         found = send.found();
+        if (limit == 0) {
+            whereFind = "WHERE ("+find+") "+types+""+countries+" LIMIT "+found+";";
+            place = send.places(select + from + whereFind);
+        }
         return place;
     }
 
