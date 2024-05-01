@@ -5,16 +5,18 @@ import {usePlaces} from "@hooks/usePlaces"
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { LoadJsonFile, LoadKmlFile } from "@utils/loadTrip";
 
+
 export default function LoadFile(props) {
     const [disallowLoad, setDisallowLoad] = useState(true);
     const [showValidityIcon, setShowValidityIcon] = useState(false);
+
 
     function clear(){
         props.toggleLoadFile();
         setShowValidityIcon(false);
         setDisallowLoad(true);
     }
-    
+   
     const bodyProps = {
         placeActions : props.placeActions,
         setTripName: props.setTripName,
@@ -24,13 +26,14 @@ export default function LoadFile(props) {
     }
     return (
             <Modal isOpen={props.showLoadFile} toggle={clear}>
-                <LoadFileHeader 
+                <LoadFileHeader
                     toggleLoadFile={clear}
                 />
                 <LoadFileBody {...bodyProps}/>
             </Modal>
     );
 }
+
 
 function LoadFileHeader(props) {
     return (
@@ -40,23 +43,25 @@ function LoadFileHeader(props) {
     );
 }
 
+
 function LoadFileBody(props) {
     const {places: loadedPlaces, selectedIndex: loadedSelectedIndex, placeActions: loadedPlaceActions} = usePlaces();
     const [fileValidity, setFileValidity] = useState(false);
     const [uploadedFileName, setUploadedFileName] = useState(null);
 
+
     const context = {
-        fileValidity, 
+        fileValidity,
         setFileValidity,
         uploadedFileName,
         setUploadedFileName,
-        loadedPlaces, 
+        loadedPlaces,
         setLoadedPlace: loadedPlaceActions.setPlaces,
     }
     return(
         <div>
-            <ChooseFile 
-                {...props} 
+            <ChooseFile
+                {...props}
                 {...context}
             />
             <LoadFileFooter
@@ -67,6 +72,7 @@ function LoadFileBody(props) {
     );
 }
 
+
 function ChooseFile(props) {
     return (
         <ModalBody>
@@ -76,10 +82,11 @@ function ChooseFile(props) {
     );
 }
 
+
 function ValidityMessage(props){
     return(
         <span align='right' data-testid='load-validity-message'>
-            {props.fileValidity ? 
+            {props.fileValidity ?
                 <span>
                     <FaCheck color="green"/>Confirm Below
                 </span> :
@@ -88,6 +95,7 @@ function ValidityMessage(props){
                 </span>}
         </span>
 
+
     )
 }
 function onUpload(e, props) {
@@ -95,10 +103,11 @@ function onUpload(e, props) {
     let reader = new FileReader();
     props.setUploadedFileName(file.name);
 
+
     reader.onload = function (ev) {
         const fileContent = ev.target.result;
         const fileExtension = file.name.split('.').pop().toLowerCase();
-        
+       
         if (fileExtension === 'json') {
             LoadJsonFile(props, fileContent);
         } else if (fileExtension === 'kml') {
@@ -109,6 +118,7 @@ function onUpload(e, props) {
     };
     reader.readAsText(file);
 }
+
 
 function LoadFileFooter(props) {
   return (
@@ -125,6 +135,7 @@ function LoadFileFooter(props) {
   );
 }
 
+
 function ConfirmLoadButton(props) {
     return (
         <Button color="primary"
@@ -134,13 +145,14 @@ function ConfirmLoadButton(props) {
                 props.clear();
                 props.setLoadedPlace([]);
                 props.setTripName(RemoveFileExtension(props.uploadedFileName));
-            }} 
+            }}
             data-testid='confirm-load-button'
         >
-            Load Selected File 
+            Load Selected File
         </Button>
     )
 }
+
 
 function RemoveFileExtension(fileName) {
     if (!fileName.includes('.')) {
@@ -151,9 +163,10 @@ function RemoveFileExtension(fileName) {
     }
 }
 
+
 function CancelLoadButton(props){
     return(
-        <Button color="secondary" 
+        <Button color="secondary"
             onClick={() =>{
                 props.setLoadedPlace([]);
                 props.clear();
@@ -161,7 +174,7 @@ function CancelLoadButton(props){
             }
             data-testid='close-load'
         >
-            Cancel 
+            Cancel
         </Button>
     )
 }

@@ -2,6 +2,7 @@ import * as tripFileSchema from '../../schemas/TripFile.json';
 import { isJsonResponseValid } from './restfulAPI';
 import { Place } from '@models/place.model';
 
+
 export async function LoadPlaces(props, foundTrip) {
     console.log("Loading places for received data");
     if (isValidJsonFile(foundTrip)) {
@@ -16,6 +17,7 @@ export async function LoadPlaces(props, foundTrip) {
     }
 }
 
+
 function isValidKmlFile(kmlString) {
     try {
         const result = new DOMParser().parseFromString(kmlString, "text/xml");
@@ -28,11 +30,13 @@ function isValidKmlFile(kmlString) {
     }
 }
 
+
 export function LoadKmlFile(props, kmlString) {
     console.log("Parsing KML Data");
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(kmlString, "text/xml");
     const errors = xmlDoc.getElementsByTagName("parsererror");
+
 
     if (errors.length > 0) {
         console.error("XML Parsing errors:", errors);
@@ -40,6 +44,7 @@ export function LoadKmlFile(props, kmlString) {
         props.setFileValidity(false);
         return;
     }
+
 
     const placemarks = xmlDoc.getElementsByTagName("Placemark");
     const places = Array.from(placemarks).map(placemark => {
@@ -55,6 +60,7 @@ export function LoadKmlFile(props, kmlString) {
         };
     });
 
+
     console.log("Loaded Places from KML:", places);
     if (places.length > 0) {
         props.setLoadedPlace(places);
@@ -66,6 +72,7 @@ export function LoadKmlFile(props, kmlString) {
         props.setFileValidity(false);
     }
 }
+
 
 function isValidJsonFile(tripString){
     try {
@@ -79,6 +86,7 @@ function isValidJsonFile(tripString){
     }
 }
 
+
 function LoadJsonFile(props, tripString){
     console.log("Parsing JSON Data");
     const tripObject = JSON.parse(tripString);
@@ -87,6 +95,7 @@ function LoadJsonFile(props, tripString){
     TripLoadValidMessage({places}, props);
 }
 
+
 function makeJsonPlacesList(tripObject){
     var places = [];
     for(let index in tripObject.places){
@@ -94,8 +103,10 @@ function makeJsonPlacesList(tripObject){
         places.push(new Place(place));
     }
 
+
     return places;
 }
+
 
 function TripLoadErrorMessage(props, message){
     console.error("Load Error:", message);
@@ -103,6 +114,7 @@ function TripLoadErrorMessage(props, message){
     props.setShowValidityIcon(true);
     props.setFileValidity(false);
 }
+
 
 function TripLoadValidMessage({places}, props){
     console.log("Places loaded successfully:", places);
