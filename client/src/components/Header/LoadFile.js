@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from "reactstrap";
 import { LoadPlaces } from "@utils/loadTrip";
 import {usePlaces} from "@hooks/usePlaces"
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { LoadJsonFile, LoadKmlFile } from "@utils/loadTrip";
 
 export default function LoadFile(props) {
     const [disallowLoad, setDisallowLoad] = useState(true);
@@ -90,15 +91,23 @@ function ValidityMessage(props){
     )
 }
 function onUpload(e, props) {
+    let file = e.target.files[0];
     let reader = new FileReader();
-    props.setUploadedFileName(e.target.files[0].name);
+    props.setUploadedFileName(file.name);
 
-    reader.onload = async function (e) {
-        props.setDisallowLoad(true);
-        const tripString = e.target.result;
-        await LoadPlaces(props, tripString);
-    }
-    reader.readAsText(e.target.files[0]);
+    reader.onload = function (ev) {
+        const fileContent = ev.target.result;
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        
+        if (fileExtension === 'json') {
+            LoadJsonFile(props, fileContent);
+        } else if (fileExtension === 'kml') {
+            LoadKmlFile(props, fileContent);
+        } else {
+            TripLoadErrorMessage(props, "Unsupported file format");
+        }
+    };
+    reader.readAsText(file);
 }
 
 function LoadFileFooter(props) {

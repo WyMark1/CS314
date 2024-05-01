@@ -58,8 +58,20 @@ function buildMenuButtons(props) {
 	return [
 		new MenuButtonProps('about-button', props.toggleAbout, <BsFillPeopleFill />, 'About'),
 		new MenuButtonProps('add-place-button', props.toggleAddPlace, <FaPlus />, 'Add Place'),
-		new MenuButtonProps('load-trip-button', props.toggleLoadFile, <FaFolderOpen />, 'Load Trip'),
-		new MenuButtonProps('save-trip-button', () => {SaveTrip(props.tripName, JSON.stringify({"places": props.places}))}, <FaSave />, 'Save Trip'),
+		new MenuButtonProps(
+            'load-trip-button', 
+            () => {
+                props.toggleLoadFile(); // This could open a modal or trigger an action to load a file
+            }, 
+            <FaFolderOpen />, 
+            'Load Trip'
+        ),
+		new MenuButtonProps('save-trip-button', () => {
+			const format = prompt('Enter file format (kml or json):'); // Simple prompt for example
+			if (format) {
+				SaveTrip(props.tripName, props.places, format);
+			}
+		}, <FaSave />, 'Save Trip'),
 		new MenuButtonProps('remove-all-button', props.placeActions.removeAll, <FaTrashAlt />, 'Remove All', props.disableRemoveAll),
 		new MenuButtonProps('settings-button', props.toggleSettings, <AiFillSetting />, 'Settings'),
 	];
