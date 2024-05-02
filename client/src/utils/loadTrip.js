@@ -53,7 +53,6 @@ export function LoadKmlFile(props, kmlString) {
         const latitude = parseFloat(coordinates[1]).toFixed(2);
         const longitude = parseFloat(coordinates[0]).toFixed(2);
 
-        // Assuming you want the format similar to "name<br>latitude°N, longitude°W"
         return {
             name: name,
             latitude: latitude,
