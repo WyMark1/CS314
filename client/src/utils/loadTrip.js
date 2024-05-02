@@ -37,7 +37,6 @@ export function LoadKmlFile(props, kmlString) {
     const xmlDoc = parser.parseFromString(kmlString, "text/xml");
     const errors = xmlDoc.getElementsByTagName("parsererror");
 
-
     if (errors.length > 0) {
         console.error("XML Parsing errors:", errors);
         props.setShowValidityIcon(true);
@@ -45,21 +44,25 @@ export function LoadKmlFile(props, kmlString) {
         return;
     }
 
-
     const placemarks = xmlDoc.getElementsByTagName("Placemark");
+    console.log("Total placemarks found:", placemarks.length);
     const places = Array.from(placemarks).map(placemark => {
-        const name = placemark.getElementsByTagName("name")[0]?.textContent;
+        const nameNode = placemark.getElementsByTagName("name")[0];
+        const name = nameNode ? nameNode.textContent : "Unknown Name";
         const coordinates = placemark.getElementsByTagName("coordinates")[0]?.textContent.split(',') || [];
+        const latitude = parseFloat(coordinates[1]).toFixed(2);
+        const longitude = parseFloat(coordinates[0]).toFixed(2);
+
+        // Assuming you want the format similar to "name<br>latitude°N, longitude°W"
         return {
             name: name,
-            latitude: coordinates[1],
-            longitude: coordinates[0],
-            formatPlace: function() { // Define formatPlace method
-                return `${this.name} located at lat ${this.latitude}, long ${this.longitude}`;
+            latitude: latitude,
+            longitude: longitude,
+            formatPlace: function() {
+                return `${this.name},${this.latitude}°N, ${this.longitude}°W`;
             }
         };
     });
-
 
     console.log("Loaded Places from KML:", places);
     if (places.length > 0) {
@@ -87,7 +90,7 @@ function isValidJsonFile(tripString){
 }
 
 
-function LoadJsonFile(props, tripString){
+export function LoadJsonFile(props, tripString){
     console.log("Parsing JSON Data");
     const tripObject = JSON.parse(tripString);
     const places = makeJsonPlacesList(tripObject);
