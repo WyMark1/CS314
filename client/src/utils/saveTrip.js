@@ -34,7 +34,7 @@ function convertToKml(places) {
 <Document>`;
     const kmlFooter = `</Document></kml>`;
     const kmlPlaces = places.map(place => {
-        const safeName = place.name;
+        const safeName = place.name || place.streetAddress;
         return `
 <Placemark>
     <name>${safeName}</name>
