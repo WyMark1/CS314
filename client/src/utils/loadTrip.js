@@ -62,10 +62,16 @@ export function LoadKmlFile(props, kmlString) {
             }
         };
     });
+    
+    var trip = [];
+    for (let index in places){
+        var place = places[index];
+        trip.push(new Place(place));
+    }
 
-    console.log("Loaded Places from KML:", places);
-    if (places.length > 0) {
-        props.setLoadedPlace(places);
+    console.log("Loaded Places from KML:", trip);
+    if (trip.length > 0) {
+        props.setLoadedPlace(trip);
         props.setShowValidityIcon(true);
         props.setFileValidity(true);
         props.setDisallowLoad(false);
