@@ -34,7 +34,18 @@ function convertToKml(places) {
 <Document>`;
     const kmlFooter = `</Document></kml>`;
     const kmlPlaces = places.map(place => {
-        const safeName = place.name || place.streetAddress;
+        //const safeName = place.name || place.streetAddress || place.municipality;
+        var safeName;
+        var s = "";
+        if(place.name != undefined &&  place.name !=null){
+            s = place.name.toString();
+        }
+        if(s.includes("&")){
+            safeName = place.municipality;
+        }
+        else{
+        safeName = place.name || place.streetAddress || place.municipality;
+        }
         return `
 <Placemark>
     <name>${safeName}</name>
